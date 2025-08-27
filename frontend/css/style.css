@@ -1,0 +1,321 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #fff; 
+}
+
+/* (CẬP NHẬT) Thêm padding-bottom để nội dung không bị footer che */
+.content-wrapper {
+    padding-bottom: 30px;
+}
+
+/* --- Loader & Icons --- */
+#loader1,
+#loader2,
+#loader3 {
+  width: 37.5px;
+  height: 37.5px;
+}
+
+.imgs-as-icons {
+  width: 50px;
+  height: 50px;
+}
+
+/* --- Navbar --- */
+.navbar {
+  background: rgba(0, 0, 0, 0.375);
+  text-align: right;
+  opacity: 100%;
+  transition: 0.3s;
+  padding: 5px;
+  margin: 0;
+}
+
+.navbar li {
+  margin: 0;
+  padding: 5px;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.navbar li a {
+  font-size: 25px;
+  color: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.navbar .search-city {
+  width: 25vw;
+  max-width: 300px; 
+  min-width: 180px; 
+  height: 40px;
+  font-size: 16px;
+  letter-spacing: 0.50px;
+  padding-left: 20px;
+  background: rgba(0, 0, 0, 0.50);
+  border: none;
+  color: #fff;
+  border-radius: 50px;
+  outline: none;
+}
+
+.navbar a:hover:not(.repo-link) {
+  background: #000;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.mobile-navbar {
+  display: none;
+  list-style-type: none;
+  opacity: 100%;
+  transition: 0.3s;
+  padding: 5px;
+  margin: 0;
+}
+
+.mobile-navbar li {
+  margin: 7.5px auto;
+  width: 90%;
+}
+
+.mobile-navbar li input {
+  height: 50px;
+  width: 100%;
+  background: #1d1d1f;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 50px;
+  outline: none;
+  font-size: 18px;
+}
+
+.mobile-navbar input::placeholder {
+  color: lightgrey;
+}
+
+/* --- Main Content --- */
+.location-name {
+  font-weight: 400;
+  text-align: center;
+}
+
+/* (MỚI) CSS cho ngày hiện tại */
+.current-date {
+    text-align: center;
+    font-size: 18px;
+    margin: -10px 0 10px 0;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.temperature-container {
+  text-align: center;
+  margin: auto;
+  font-size: 50px;
+}
+
+.temperature-icon {
+  margin-bottom: -15px;
+  padding: 0;
+}
+
+.temperature-value {
+  margin-top: -15px;
+  padding: 0;
+}
+
+.weather-type {
+  font-weight: 400;
+  text-align: center;
+}
+
+/* --- Additional Info Section --- */
+.additionals-first-row,
+.additionals-second-row {
+  font-size: 12.5px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.additionals-first-row {
+  margin-bottom: 12.5px;
+}
+
+.additionals-second-row {
+  margin-top: 12.5px;
+}
+
+.real-feel-additional,
+.humidity-additional,
+.max-temperature-additional,
+.min-temperature-additional,
+.wind-speed-additional,
+.wind-direction-additional,
+.visibility-additional,
+.sunrise-additional,
+.sunset-additional {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 50px;
+  padding: 5px 12px;
+  margin: 0;
+}
+
+
+/* --- Daily Forecast Section --- */
+.daily-forecast {
+  padding: 25px;
+  margin-top: -25px;
+  text-align: center;
+}
+
+.daily-forecast .daily-forecast-label {
+  color: #fff;
+}
+
+.forecast-container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    /* (CẬP NHẬT) Tăng khoảng cách giữa các card */
+    gap: 15px; 
+}
+
+.daily-forecast-card {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2); 
+  width: 125px;
+  height: 162.5px;
+  padding: 2.5px 10px;
+  color: #fff;
+}
+
+.daily-forecast-card .daily-forecast-date {
+  font-size: 17.5px;
+  margin-top: 12.5px;
+  font-weight: 400;
+}
+
+.daily-forecast-card .daily-forecast-logo {
+  font-size: 37.5px;
+  margin-top: -15px;
+  margin-bottom: 2.5px;
+}
+
+.daily-forecast-card .weather-type-daily-forecast {
+  font-weight: normal;
+  margin-top: 2.5px;
+  font-size: 14px;
+}
+
+.max-min-temperature-daily-forecast {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.max-daily-forecast {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.min-daily-forecast {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.375);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 992px) {
+    .navbar .search-city {
+        width: 20vw;
+    }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    display: none;
+  }
+  .mobile-navbar {
+    display: block;
+  }
+  .additionals-first-row,
+  .additionals-second-row {
+    line-height: normal;
+    gap: 8px;
+  }
+  .real-feel-additional,
+  .humidity-additional,
+  .max-temperature-additional,
+  .min-temperature-additional,
+  .wind-speed-additional,
+  .wind-direction-additional,
+  .visibility-additional,
+  .sunrise-additional,
+  .sunset-additional {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+  .daily-forecast-card {
+    width: 110px;
+    height: 150px;
+  }
+  .daily-forecast-card .daily-forecast-date {
+    font-size: 15px;
+  }
+  .max-daily-forecast {
+    font-size: 22px;
+  }
+  .min-daily-forecast {
+    font-size: 14px;
+  }
+  .daily-forecast .daily-forecast-label {
+    background: rgba(211, 211, 211, 0.8);
+    color: #252525;
+    padding: 10px;
+    width: 75%;
+    border-radius: 50px;
+    margin: auto auto 15px auto;
+  }
+  #weatherType {
+    margin-top: 0;
+  }
+}
