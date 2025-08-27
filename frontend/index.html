@@ -28,8 +28,10 @@
 <body>
   <div class="content-wrapper">
     <ul class="navbar">
-      <li style="float: left; margin-left: -10px;" class="forecast"><a class="repo-link" href="#">⛄ Forecast</a></li>
-      <li><a href="#">⟳</a></li>
+      <!-- (CẬP NHẬT) Xóa inline style -->
+      <li class="forecast"><a class="repo-link" href="#">⛄ Forecast</a></li>
+      <!-- (CẬP NHẬT) Thêm id="reloadBtn" -->
+      <li><a href="#" id="reloadBtn">⟳</a></li>
       <li><input spellcheck="false" class="search-city" id="searchCity" type="text" autocomplete="off"
           placeholder="🔍︎ Search City"></li>
     </ul>
@@ -40,7 +42,6 @@
     </ul>
 
     <h1 class="location-name" id="locationName">Loading weather...</h1>
-    <!-- (MỚI) Thêm element để hiển thị ngày hiện tại -->
     <p class="current-date" id="currentDate"></p>
 
     <div class="temperature-container">
