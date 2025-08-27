@@ -14,7 +14,6 @@ body {
   color: #fff; 
 }
 
-/* (CẬP NHẬT) Thêm padding-bottom để nội dung không bị footer che */
 .content-wrapper {
     padding-bottom: 30px;
 }
@@ -115,7 +114,6 @@ body {
   text-align: center;
 }
 
-/* (MỚI) CSS cho ngày hiện tại */
 .current-date {
     text-align: center;
     font-size: 18px;
@@ -198,15 +196,17 @@ body {
     display: flex;
     flex-wrap: wrap; 
     justify-content: center;
-    /* (CẬP NHẬT) Tăng khoảng cách giữa các card */
-    gap: 15px; 
+    column-gap: 15px; /* Giữ nguyên khoảng cách ngang */
+    /* (CẬP NHẬT) Tăng khoảng cách dọc để sửa lỗi đè chữ */
+    row-gap: 30px; 
 }
 
 .daily-forecast-card {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.2); 
   width: 125px;
-  height: 162.5px;
+  /* (CẬP NHẬT) Bỏ chiều cao cố định để thẻ tự co dãn theo nội dung */
+  /* height: 162.5px; */
   padding: 2.5px 10px;
   color: #fff;
 }
@@ -227,6 +227,8 @@ body {
   font-weight: normal;
   margin-top: 2.5px;
   font-size: 14px;
+  /* (CẬP NHẬT) Thêm khoảng đệm dưới cùng để đảm bảo không bị sát viền thẻ */
+  padding-bottom: 10px; 
 }
 
 .max-min-temperature-daily-forecast {
@@ -296,7 +298,7 @@ body {
   }
   .daily-forecast-card {
     width: 110px;
-    height: 150px;
+    /* height: 150px; -- Bỏ chiều cao cố định */
   }
   .daily-forecast-card .daily-forecast-date {
     font-size: 15px;
