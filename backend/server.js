@@ -2,25 +2,28 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-require('dotenv').config(); // Để đọc file .env
+require('dotenv').config();
 
-// Khởi tạo ứng dụng Express
 const app = express();
 const PORT = process.env.PORT || 3000;
 const apiKey = process.env.WEATHER_API_KEY;
 
-// Sử dụng middleware
 app.use(cors());
 app.use(express.json());
 
 // Endpoint để lấy dữ liệu thời tiết (forecast)
 app.get('/weather', async (req, res) => {
-    const city = req.query.city;
+    // (CẬP NHẬT) Lấy thêm tham số 'lang'
+    const { city, lang } = req.query;
+
     if (!city) {
         return res.status(400).json({ error: 'City parameter is required' });
     }
+
+    const langCode = lang || 'en'; // Mặc định là tiếng Anh nếu không có
     const days = 7;
-    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=${days}&aqi=no&alerts=no`;
+    // (CẬP NHẬT) Thêm tham số &lang=${langCode} vào URL
+    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=${days}&aqi=no&alerts=no&lang=${langCode}`;
 
     try {
         const response = await axios.get(apiUrl);
@@ -51,8 +54,6 @@ app.get('/search', async (req, res) => {
     }
 });
 
-
-// Khởi động server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

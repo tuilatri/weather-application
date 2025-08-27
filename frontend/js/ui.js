@@ -1,7 +1,7 @@
 // js/ui.js
 
 const locationNameEl = document.getElementById("locationName");
-const currentDateEl = document.getElementById("currentDate"); 
+const currentDateEl = document.getElementById("currentDate");
 const temperatureValueEl = document.getElementById("temperatureValue");
 const weatherTypeEl = document.getElementById("weatherType");
 const currentWeatherIconEl = document.getElementById("currentWeatherIcon");
@@ -10,41 +10,23 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchSuggestionsEl = document.getElementById('searchSuggestions');
 const mobileSearchSuggestionsEl = document.getElementById('mobileSearchSuggestions');
 
-function showLoader() {
-    locationNameEl.innerHTML = '<img id="loader1" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">';
-    currentDateEl.textContent = '';
-    temperatureValueEl.innerHTML = '<img id="loader2" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">';
-    weatherTypeEl.innerHTML = '<img id="loader3" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">';
-    messageEl.textContent = '';
-    forecastContainer.innerHTML = '';
-    clearAdditionalInfo();
-}
-function displayError(message) {
-    locationNameEl.textContent = 'Error';
-    currentDateEl.textContent = '';
-    temperatureValueEl.innerHTML = '';
-    weatherTypeEl.innerHTML = '';
-    currentWeatherIconEl.src = 'assets/icons/sunny.png';
-    messageEl.textContent = message;
-    forecastContainer.innerHTML = '';
-    clearAdditionalInfo();
-}
-function clearAdditionalInfo() {
-    document.getElementById("realFeelAdditionalValue").textContent = '-';
-    document.getElementById("humidityAdditionalValue").textContent = '-';
-    document.getElementById("maxTemperatureAdditionalValue").textContent = '-';
-    document.getElementById("minTemperatureAdditionalValue").textContent = '-';
-    document.getElementById("windSpeedAdditionalValue").textContent = '-';
-    document.getElementById("windDirectionAdditionalValue").textContent = '-';
-    document.getElementById("visibilityAdditionalValue").textContent = '-';
-    document.getElementById("sunriseAdditionalValue").textContent = '-';
-    document.getElementById("sunsetAdditionalValue").textContent = '-';
-}
-function updateUI(data) {
+// ... (các hàm showLoader, displayError, clearAdditionalInfo không đổi)
+function showLoader() { /* ... */ }
+function displayError(message) { /* ... */ }
+function clearAdditionalInfo() { /* ... */ }
+
+// (CẬP NHẬT) Hàm updateUI nhận thêm tham số 'lang'
+function updateUI(data, lang) {
     const { location, current, forecast } = data;
+    
+    // Dịch các nhãn tĩnh
+    updateStaticText(lang);
+
+    // Sử dụng 'lang' để định dạng ngày tháng theo ngôn ngữ
     const today = new Date();
     const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-    currentDateEl.textContent = today.toLocaleDateString('en-US', dateOptions);
+    currentDateEl.textContent = today.toLocaleDateString(lang, dateOptions);
+
     locationNameEl.textContent = `${location.name}, ${location.country}`;
     temperatureValueEl.innerHTML = `${Math.round(current.temp_c)}<sup>o</sup>C`;
     weatherTypeEl.textContent = current.condition.text;
@@ -60,12 +42,13 @@ function updateUI(data) {
     document.getElementById("minTemperatureAdditionalValue").innerHTML = `${Math.round(todayForecast.day.mintemp_c)}<sup>o</sup>C`;
     document.getElementById("sunriseAdditionalValue").textContent = todayForecast.astro.sunrise;
     document.getElementById("sunsetAdditionalValue").textContent = todayForecast.astro.sunset;
+    
     forecastContainer.innerHTML = ''; 
     forecast.forecastday.forEach(dayData => {
         const forecastCard = document.createElement('div');
         forecastCard.classList.add('daily-forecast-card');
         const date = new Date(dayData.date);
-        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const dayOfWeek = date.toLocaleDateString(lang, { weekday: 'short' }); // Dùng lang ở đây
         const dayOfMonth = date.getDate();
         forecastCard.innerHTML = `
             <p class="daily-forecast-date">${dayOfWeek} ${dayOfMonth}</p>
@@ -79,35 +62,15 @@ function updateUI(data) {
         forecastContainer.appendChild(forecastCard);
     });
 }
-function setRandomBackground() {
-    const backgroundsList = ["day1.jpg", "day2.jpg", "day3.jpg", "day4.jpg", "day5.jpg", "cloudy1.jpg", "cloudy2.jpg", "cloudy3.jpg", "cloudy4.jpg", "cloudy5.jpg", "night1.jpg", "night2.jpg", "night3.jpg", "night4.jpg", "night5.jpg", "rainy1.jpg", "rainy2.jpg", "rainy3.jpg", "rainy4.jpg", "rainy5.jpg"];
-    const randomBackground = backgroundsList[Math.floor(Math.random() * backgroundsList.length)];
-    document.body.style.background = `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('assets/media/${randomBackground}')`;
-}
 
-function displaySuggestions(suggestions, container) {
-    container.innerHTML = '';
-    if (suggestions.length === 0) {
-        container.classList.remove('show');
-        return;
-    }
+function setRandomBackground() { /* ... không đổi ... */ }
+function displaySuggestions(suggestions, container) { /* ... không đổi ... */ }
+function clearSuggestions() { /* ... không đổi ... */ }
 
-    // Vòng lặp này sẽ chạy qua TẤT CẢ các gợi ý mà API trả về
-    // và tạo một thẻ div cho mỗi gợi ý.
-    suggestions.forEach(location => {
-        const item = document.createElement('div');
-        item.classList.add('suggestion-item');
-        item.textContent = `${location.name}, ${location.region}, ${location.country}`;
-        item.dataset.locationName = location.name;
-        container.appendChild(item);
-    });
-
-    container.classList.add('show');
-}
-
-function clearSuggestions() {
-    searchSuggestionsEl.innerHTML = '';
-    searchSuggestionsEl.classList.remove('show');
-    mobileSearchSuggestionsEl.innerHTML = '';
-    mobileSearchSuggestionsEl.classList.remove('show');
-}
+// --- Dán lại code không đổi để bạn có file hoàn chỉnh ---
+function showLoader() { locationNameEl.innerHTML = '<img id="loader1" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">'; currentDateEl.textContent = ''; temperatureValueEl.innerHTML = '<img id="loader2" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">'; weatherTypeEl.innerHTML = '<img id="loader3" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">'; messageEl.textContent = ''; forecastContainer.innerHTML = ''; clearAdditionalInfo(); }
+function displayError(message) { locationNameEl.textContent = 'Error'; currentDateEl.textContent = ''; temperatureValueEl.innerHTML = ''; weatherTypeEl.innerHTML = ''; currentWeatherIconEl.src = 'assets/icons/sunny.png'; messageEl.textContent = message; forecastContainer.innerHTML = ''; clearAdditionalInfo(); }
+function clearAdditionalInfo() { document.getElementById("realFeelAdditionalValue").textContent = '-'; document.getElementById("humidityAdditionalValue").textContent = '-'; document.getElementById("maxTemperatureAdditionalValue").textContent = '-'; document.getElementById("minTemperatureAdditionalValue").textContent = '-'; document.getElementById("windSpeedAdditionalValue").textContent = '-'; document.getElementById("windDirectionAdditionalValue").textContent = '-'; document.getElementById("visibilityAdditionalValue").textContent = '-'; document.getElementById("sunriseAdditionalValue").textContent = '-'; document.getElementById("sunsetAdditionalValue").textContent = '-'; }
+function setRandomBackground() { const backgroundsList = ["day1.jpg", "day2.jpg", "day3.jpg", "day4.jpg", "day5.jpg", "cloudy1.jpg", "cloudy2.jpg", "cloudy3.jpg", "cloudy4.jpg", "cloudy5.jpg", "night1.jpg", "night2.jpg", "night3.jpg", "night4.jpg", "night5.jpg", "rainy1.jpg", "rainy2.jpg", "rainy3.jpg", "rainy4.jpg", "rainy5.jpg"]; const randomBackground = backgroundsList[Math.floor(Math.random() * backgroundsList.length)]; document.body.style.background = `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('assets/media/${randomBackground}')`; }
+function displaySuggestions(suggestions, container) { container.innerHTML = ''; if (suggestions.length === 0) { container.classList.remove('show'); return; } suggestions.forEach(location => { const item = document.createElement('div'); item.classList.add('suggestion-item'); item.textContent = `${location.name}, ${location.region}, ${location.country}`; item.dataset.locationName = location.name; container.appendChild(item); }); container.classList.add('show'); }
+function clearSuggestions() { searchSuggestionsEl.innerHTML = ''; searchSuggestionsEl.classList.remove('show'); mobileSearchSuggestionsEl.innerHTML = ''; mobileSearchSuggestionsEl.classList.remove('show'); }
