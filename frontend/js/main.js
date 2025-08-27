@@ -4,9 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Đặt ảnh nền ngẫu nhiên
     setRandomBackground();
 
-    // Lấy các element input
+    // Lấy các element input và button
     const cityInputDesktop = document.getElementById("searchCity");
     const cityInputMobile = document.getElementById("mobileSearchCity");
+    const reloadBtn = document.getElementById("reloadBtn"); // Lấy nút reload
 
     // Hàm xử lý tìm kiếm
     function handleSearch(event) {
@@ -20,9 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Gắn sự kiện cho input
+    // (MỚI) Hàm xử lý sự kiện reload
+    function handleReload(event) {
+        event.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+        location.reload(); // Tải lại trang
+    }
+
+    // Gắn sự kiện cho input và button
     cityInputDesktop.addEventListener("keyup", handleSearch);
     cityInputMobile.addEventListener("keyup", handleSearch);
+    reloadBtn.addEventListener("click", handleReload); // Gắn sự kiện click cho nút reload
 
     // Lấy thời tiết mặc định khi tải trang
     function getDefaultWeather() {

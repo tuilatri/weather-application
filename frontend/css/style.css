@@ -31,21 +31,28 @@ body {
   height: 50px;
 }
 
-/* --- Navbar --- */
+/* --- Navbar (CẬP NHẬT) --- */
 .navbar {
   background: rgba(0, 0, 0, 0.375);
-  text-align: right;
   opacity: 100%;
   transition: 0.3s;
-  padding: 5px;
+  padding: 5px 15px; /* Thêm padding ngang */
   margin: 0;
+  /* Sử dụng Flexbox để căn chỉnh */
+  display: flex;
+  align-items: center; /* Căn giữa các item theo chiều dọc */
+  gap: 10px; /* Thêm khoảng cách giữa các item bên phải */
+}
+
+.navbar .forecast {
+    margin-right: auto; /* Đẩy tất cả các item khác sang phải */
 }
 
 .navbar li {
   margin: 0;
-  padding: 5px;
-  display: inline-block;
-  transition: 0.3s;
+  padding: 0; /* Bỏ padding cũ vì đã có gap */
+  display: flex; /* Giúp căn giữa nội dung bên trong li */
+  align-items: center;
 }
 
 .navbar li a {
@@ -259,7 +266,6 @@ body {
 .footer-icon {
   width: 100px;
   height: 25px;
-  /* (CẬP NHẬT) Thêm object-fit để đảm bảo icon không bị méo */
   object-fit: contain;
 }
 
