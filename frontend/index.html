@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,99 +18,60 @@
       display: flex;
       flex-direction: column;
     }
-    .content-wrapper {
-        flex: 1; 
-    }
+    .content-wrapper { flex: 1; }
   </style>
 </head>
-
 <body>
   <div class="content-wrapper">
     <ul class="navbar">
-      <!-- (CẬP NHẬT) Xóa inline style -->
       <li class="forecast"><a class="repo-link" href="#">⛄ Forecast</a></li>
-      <!-- (CẬP NHẬT) Thêm id="reloadBtn" -->
       <li><a href="#" id="reloadBtn">⟳</a></li>
-      <li><input spellcheck="false" class="search-city" id="searchCity" type="text" autocomplete="off"
-          placeholder="🔍︎ Search City"></li>
+      <li class="search-container">
+        <input spellcheck="false" class="search-city" id="searchCity" type="text" autocomplete="off" placeholder="🔍︎ Search City">
+        <div id="searchSuggestions" class="search-suggestions"></div>
+      </li>
     </ul>
 
     <ul class="mobile-navbar">
-      <li><input spellcheck="false" class="mobile-search-city" id="mobileSearchCity" type="text" autocomplete="off"
-          placeholder="Search City..."></li>
+      <li class="search-container">
+        <input spellcheck="false" class="mobile-search-city" id="mobileSearchCity" type="text" autocomplete="off" placeholder="Search City...">
+        <div id="mobileSearchSuggestions" class="search-suggestions"></div>
+      </li>
     </ul>
 
     <h1 class="location-name" id="locationName">Loading weather...</h1>
     <p class="current-date" id="currentDate"></p>
-
     <div class="temperature-container">
       <div class="temperature-icon"><img class="imgs-as-icons" id="currentWeatherIcon" src="assets/icons/sunny.png"></div>
       <div class="temperature-value" id="temperatureValue"></div>
     </div>
-
     <h2 class="weather-type" id="weatherType"></h2>
     <div class="message" id="message" style="color: red; text-align: center; margin-top: 10px;"></div>
-
-
     <div class="additionals-first-row">
-      <span class="real-feel-additional">
-        <span class="real-feel-additional-label">Real Feel </span>
-        <span class="real-feel-additional-value" id="realFeelAdditionalValue">-</span>
-      </span>
-      <span class="humidity-additional">
-        <span class="humidity-additional-label">Humidity </span>
-        <span class="humidity-additional-value" id="humidityAdditionalValue">-</span>
-      </span>
-      <span class="max-temperature-additional">
-        <span class="max-temperature-additional-label">Highest </span>
-        <span class="max-temperature-additional-value" id="maxTemperatureAdditionalValue">-</span>
-      </span>
-      <span class="min-temperature-additional">
-        <span class="min-temperature-additional-label">Lowest </span>
-        <span class="min-temperature-additional-value" id="minTemperatureAdditionalValue">-</span>
-      </span>
+      <span class="real-feel-additional"><span class="real-feel-additional-label">Real Feel </span><span class="real-feel-additional-value" id="realFeelAdditionalValue">-</span></span>
+      <span class="humidity-additional"><span class="humidity-additional-label">Humidity </span><span class="humidity-additional-value" id="humidityAdditionalValue">-</span></span>
+      <span class="max-temperature-additional"><span class="max-temperature-additional-label">Highest </span><span class="max-temperature-additional-value" id="maxTemperatureAdditionalValue">-</span></span>
+      <span class="min-temperature-additional"><span class="min-temperature-additional-label">Lowest </span><span class="min-temperature-additional-value" id="minTemperatureAdditionalValue">-</span></span>
     </div>
-
     <div class="additionals-second-row">
-      <span class="wind-speed-additional">
-        <span class="wind-speed-additional-label">Wind Speed </span>
-        <span class="wind-speed-additional-value" id="windSpeedAdditionalValue">-</span>
-      </span>
-      <span class="wind-direction-additional">
-        <span class="wind-direction-additional-label">Wind Direction </span>
-        <span class="wind-direction-additional-value" id="windDirectionAdditionalValue">-</span>
-      </span>
-      <span class="visibility-additional">
-        <span class="visibility-additional-label">Visibility </span>
-        <span class="visibility-additional-value" id="visibilityAdditionalValue">-</span>
-      </span>
-      <span class="sunrise-additional">
-          <span class="sunrise-additional-label">Sunrise </span>
-          <span class="sunrise-additional-value" id="sunriseAdditionalValue">-</span>
-      </span>
-      <span class="sunset-additional">
-          <span class="sunset-additional-label">Sunset </span>
-          <span class="sunset-additional-value" id="sunsetAdditionalValue">-</span>
-      </span>
+      <span class="wind-speed-additional"><span class="wind-speed-additional-label">Wind Speed </span><span class="wind-speed-additional-value" id="windSpeedAdditionalValue">-</span></span>
+      <span class="wind-direction-additional"><span class="wind-direction-additional-label">Wind Direction </span><span class="wind-direction-additional-value" id="windDirectionAdditionalValue">-</span></span>
+      <span class="visibility-additional"><span class="visibility-additional-label">Visibility </span><span class="visibility-additional-value" id="visibilityAdditionalValue">-</span></span>
+      <span class="sunrise-additional"><span class="sunrise-additional-label">Sunrise </span><span class="sunrise-additional-value" id="sunriseAdditionalValue">-</span></span>
+      <span class="sunset-additional"><span class="sunset-additional-label">Sunset </span><span class="sunset-additional-value" id="sunsetAdditionalValue">-</span></span>
     </div>
-
     <br>
-
     <div class="daily-forecast">
       <h2 class="daily-forecast-label">7-Day Forecast</h2>
-      <div id="forecast-container" class="forecast-container">
-      </div>
+      <div id="forecast-container" class="forecast-container"></div>
     </div>
   </div>
-
   <footer class="footer">
     <img src="assets/icons/FCJ-logo.png" alt="Icon" class="footer-icon">
     <span>Made by Ha Minh Tri</span>
   </footer>
-
   <script src="js/ui.js"></script>
   <script src="js/api.js"></script>
   <script src="js/main.js"></script>
-
 </body>
 </html>
