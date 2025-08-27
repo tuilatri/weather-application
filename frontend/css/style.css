@@ -17,21 +17,50 @@ body { margin: 0; font-family: "Montserrat", sans-serif; font-weight: 500; color
 .navbar .search-city { width: 25vw; max-width: 300px; min-width: 180px; height: 40px; font-size: 16px; letter-spacing: 0.50px; padding-left: 20px; background: rgba(0, 0, 0, 0.50); border: none; color: #fff; border-radius: 50px; outline: none; }
 .navbar a:hover:not(.repo-link) { background: #000; transition: 0.3s; border-radius: 5px; }
 
-/* (MỚI) Style cho dropdown ngôn ngữ */
-.language-selector {
+/* --- (CẬP NHẬT) Style cho dropdown ngôn ngữ --- */
+.language-container {
+    position: relative;
     background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 8px;
     border-radius: 5px;
+    transition: background 0.3s;
+}
+.language-container:hover {
+    background: #000;
+}
+.language-selector {
+    /* Loại bỏ giao diện mặc định */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 8px 30px 8px 12px;
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
     cursor: pointer;
     outline: none;
+
+    /* (CẬP NHẬT) Gợi ý cho trình duyệt sử dụng theme tối cho panel xổ xuống */
+    color-scheme: dark;
 }
-.language-selector:hover {
-    background: #000;
+/* Style cho các option bên trong dropdown (hoạt động tốt trên Firefox) */
+.language-selector option {
+    background: #1e1e1e; /* Một màu tối hơn cho nền option */
+    color: #fff;
 }
+/* Tạo mũi tên tùy chỉnh */
+.language-container::after {
+    content: '▼';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+}
+
 
 .mobile-navbar { display: none; list-style-type: none; opacity: 100%; transition: 0.3s; padding: 5px; margin: 0; }
 .mobile-navbar li { margin: 7.5px auto; width: 90%; }
