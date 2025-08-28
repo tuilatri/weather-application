@@ -25,34 +25,47 @@ const LANGUAGES = [
 ];
 
 const TRANSLATIONS = {
-    'en': {
-        realFeel: 'Real Feel', humidity: 'Humidity', highest: 'Highest',
-        lowest: 'Lowest', windSpeed: 'Wind Speed', windDirection: 'Wind Direction',
-        visibility: 'Visibility', sunrise: 'Sunrise', sunset: 'Sunset',
-        sevenDayForecast: '7-Day Forecast',
-        // (CẬP NHẬT) Thêm các key mới
-        forecast: '⛄ Forecast',
-        madeBy: 'Made by Ha Minh Tri'
-    },
-    'vi': {
-        realFeel: 'Cảm giác thực', humidity: 'Độ ẩm', highest: 'Cao nhất',
-        lowest: 'Thấp nhất', windSpeed: 'Tốc độ gió', windDirection: 'Hướng gió',
-        visibility: 'Tầm nhìn', sunrise: 'Mặt trời mọc', sunset: 'Mặt trời lặn',
-        sevenDayForecast: 'Dự báo 7 ngày',
-        // (CẬP NHẬT) Thêm các key mới
-        forecast: '⛄ Dự báo',
-        madeBy: 'Thực hiện bởi Hà Minh Trí'
-    },
-    'es': {
-        realFeel: 'Sensación real', humidity: 'Humedad', highest: 'Más alta',
-        lowest: 'Más bajo', windSpeed: 'Velocidad del viento', windDirection: 'Dirección del viento',
-        visibility: 'Visibilidad', sunrise: 'Amanecer', sunset: 'Atardecer',
-        sevenDayForecast: 'Pronóstico de 7 días',
-        // (CẬP NHẬT) Thêm các key mới
-        forecast: '⛄ Pronóstico',
-        madeBy: 'Hecho por Ha Minh Tri'
-    },
-    // Bạn có thể thêm các ngôn ngữ khác ở đây...
+    'en': { realFeel: 'Real Feel', humidity: 'Humidity', highest: 'Highest', lowest: 'Lowest', windSpeed: 'Wind Speed', windDirection: 'Wind Direction', visibility: 'Visibility', sunrise: 'Sunrise', sunset: 'Sunset', sevenDayForecast: '7-Day Forecast', forecast: '⛄ Forecast', madeBy: 'Made by Ha Minh Tri' },
+    'vi': { realFeel: 'Cảm giác thực', humidity: 'Độ ẩm', highest: 'Cao nhất', lowest: 'Thấp nhất', windSpeed: 'Tốc độ gió', windDirection: 'Hướng gió', visibility: 'Tầm nhìn', sunrise: 'Mặt trời mọc', sunset: 'Mặt trời lặn', sevenDayForecast: 'Dự báo 7 ngày', forecast: '⛄ Dự báo', madeBy: 'Thực hiện bởi Hà Minh Trí' },
+    'es': { realFeel: 'Sensación real', humidity: 'Humedad', highest: 'Más alta', lowest: 'Más bajo', windSpeed: 'Velocidad del viento', windDirection: 'Dirección del viento', visibility: 'Visibilidad', sunrise: 'Amanecer', sunset: 'Atardecer', sevenDayForecast: 'Pronóstico de 7 días', forecast: '⛄ Pronóstico', madeBy: 'Hecho por Ha Minh Tri' },
+    'ar': { realFeel: 'إحساس حقيقي', humidity: 'رطوبة', highest: 'الأعلى', lowest: 'الأدنى', windSpeed: 'سرعة الرياح', windDirection: 'اتجاه الرياح', visibility: 'رؤية', sunrise: 'شروق الشمس', sunset: 'غروب الشمس', sevenDayForecast: 'توقعات 7 أيام', forecast: '⛄ توقعات', madeBy: 'صنع بواسطة Ha Minh Tri' },
+    'bn': { realFeel: 'আসল অনুভূতি', humidity: 'আর্দ্রতা', highest: 'সর্বোচ্চ', lowest: ' সর্বনিম্ন', windSpeed: 'বাতাসের গতি', windDirection: 'বাতাসের দিক', visibility: 'দৃশ্যমানতা', sunrise: 'সূর্যোদয়', sunset: 'সূর্যাস্ত', sevenDayForecast: '৭ দিনের পূর্বাভাস', forecast: '⛄ পূর্বাভাস', madeBy: 'Ha Minh Tri দ্বারা তৈরি' },
+    'bg': { realFeel: 'Усеща се като', humidity: 'Влажност', highest: 'Най-висока', lowest: 'Най-ниска', windSpeed: 'Скорост на вятъра', windDirection: 'Посока на вятъра', visibility: 'Видимост', sunrise: 'Изгрев', sunset: 'Залез', sevenDayForecast: '7-дневна прогноза', forecast: '⛄ Прогноза', madeBy: 'Направено от Ha Minh Tri' },
+    'zh': { realFeel: '体感温度', humidity: '湿度', highest: '最高', lowest: '最低', windSpeed: '风速', windDirection: '风向', visibility: '能见度', sunrise: '日出', sunset: '日落', sevenDayForecast: '7天预报', forecast: '⛄ 预报', madeBy: '由Ha Minh Tri制作' },
+    'zh_tw': { realFeel: '體感溫度', humidity: '濕度', highest: '最高', lowest: '最低', windSpeed: '風速', windDirection: '風向', visibility: '能見度', sunrise: '日出', sunset: '日落', sevenDayForecast: '7天預報', forecast: '⛄ 預報', madeBy: '由Ha Minh Tri製作' },
+    'cs': { realFeel: 'Pocitová teplota', humidity: 'Vlhkost', highest: 'Nejvyšší', lowest: 'Nejnižší', windSpeed: 'Rychlost větru', windDirection: 'Směr větru', visibility: 'Viditelnost', sunrise: 'Východ slunce', sunset: 'Západ slunce', sevenDayForecast: '7denní předpověď', forecast: '⛄ Předpověď', madeBy: 'Vytvořil Ha Minh Tri' },
+    'da': { realFeel: 'Føles som', humidity: 'Luftfugtighed', highest: 'Højeste', lowest: 'Laveste', windSpeed: 'Vindhastighed', windDirection: 'Vindretning', visibility: 'Sigtbarhed', sunrise: 'Solopgang', sunset: 'Solnedgang', sevenDayForecast: '7-dages vejrudsigt', forecast: '⛄ Vejrudsigt', madeBy: 'Lavet af Ha Minh Tri' },
+    'nl': { realFeel: 'Gevoelstemperatuur', humidity: 'Vochtigheid', highest: 'Hoogste', lowest: 'Laagste', windSpeed: 'Windsnelheid', windDirection: 'Windrichting', visibility: 'Zichtbaarheid', sunrise: 'Zonsopgang', sunset: 'Zonsondergang', sevenDayForecast: '7-daagse voorspelling', forecast: '⛄ Voorspelling', madeBy: 'Gemaakt door Ha Minh Tri' },
+    'fi': { realFeel: 'Tuntuu kuin', humidity: 'Kosteus', highest: 'Korkein', lowest: 'Matalin', windSpeed: 'Tuulen nopeus', windDirection: 'Tuulen suunta', visibility: 'Näkyvyys', sunrise: 'Auringonnousu', sunset: 'Auringonlasku', sevenDayForecast: '7 päivän ennuste', forecast: '⛄ Ennuste', madeBy: 'Tekijä: Ha Minh Tri' },
+    'fr': { realFeel: 'Ressenti', humidity: 'Humidité', highest: 'Maximale', lowest: 'Minimale', windSpeed: 'Vitesse du vent', windDirection: 'Direction du vent', visibility: 'Visibilité', sunrise: 'Lever du soleil', sunset: 'Coucher du soleil', sevenDayForecast: 'Prévisions sur 7 jours', forecast: '⛄ Prévisions', madeBy: 'Fait par Ha Minh Tri' },
+    'de': { realFeel: 'Gefühlte Temp.', humidity: 'Luftfeuchtigkeit', highest: 'Höchst', lowest: 'Tiefst', windSpeed: 'Windgeschw.', windDirection: 'Windrichtung', visibility: 'Sichtweite', sunrise: 'Sonnenaufgang', sunset: 'Sonnenuntergang', sevenDayForecast: '7-Tage-Vorhersage', forecast: '⛄ Vorhersage', madeBy: 'Erstellt von Ha Minh Tri' },
+    'el': { realFeel: 'Αισθητή θερμ.', humidity: 'Υγρασία', highest: 'Μέγιστη', lowest: 'Ελάχιστη', windSpeed: 'Ταχύτητα ανέμου', windDirection: 'Κατεύθυνση ανέμου', visibility: 'Ορατότητα', sunrise: 'Ανατολή ηλίου', sunset: 'Δύση ηλίου', sevenDayForecast: 'Πρόγνωση 7 ημερών', forecast: '⛄ Πρόγνωση', madeBy: 'Από Ha Minh Tri' },
+    'hi': { realFeel: 'वास्तविक महसूस', humidity: 'नमी', highest: 'उच्चतम', lowest: 'न्यूनतम', windSpeed: 'हवा की गति', windDirection: 'हवा की दिशा', visibility: 'दृश्यता', sunrise: 'सूर्योदय', sunset: 'सूर्यास्त', sevenDayForecast: '7-दिन का पूर्वानुमान', forecast: '⛄ पूर्वानुमान', madeBy: 'Ha Minh Tri द्वारा बनाया गया' },
+    'hu': { realFeel: 'Hőérzet', humidity: 'Páratartalom', highest: 'Legmagasabb', lowest: 'Legalacsonyabb', windSpeed: 'Szélsebesség', windDirection: 'Szélirány', visibility: 'Látótávolság', sunrise: 'Napkelte', sunset: 'Napnyugta', sevenDayForecast: '7 napos előrejelzés', forecast: '⛄ Előrejelzés', madeBy: 'Készítette: Ha Minh Tri' },
+    'it': { realFeel: 'Percepita', humidity: 'Umidità', highest: 'Massima', lowest: 'Minima', windSpeed: 'Velocità del vento', windDirection: 'Direzione del vento', visibility: 'Visibilità', sunrise: 'Alba', sunset: 'Tramonto', sevenDayForecast: 'Previsioni a 7 giorni', forecast: '⛄ Previsioni', madeBy: 'Creato da Ha Minh Tri' },
+    'ja': { realFeel: '体感温度', humidity: '湿度', highest: '最高', lowest: '最低', windSpeed: '風速', windDirection: '風向', visibility: '視程', sunrise: '日の出', sunset: '日の入り', sevenDayForecast: '7日間予報', forecast: '⛄ 予報', madeBy: '作成者 Ha Minh Tri' },
+    'jv': { realFeel: 'Krasa Nyata', humidity: 'Kelembapan', highest: 'Paling Dhuwur', lowest: 'Paling Endhek', windSpeed: 'Kacepetan Angin', windDirection: 'Arah Angin', visibility: 'Jarak Pandang', sunrise: 'Mletheking Srengenge', sunset: 'Surup', sevenDayForecast: 'Prakiraan 7 Dina', forecast: '⛄ Prakiraan', madeBy: 'Digawe dening Ha Minh Tri' },
+    'ko': { realFeel: '체감 온도', humidity: '습도', highest: '최고', lowest: '최저', windSpeed: '풍속', windDirection: '풍향', visibility: '가시거리', sunrise: '일출', sunset: '일몰', sevenDayForecast: '7일 예보', forecast: '⛄ 예보', madeBy: '제작자: Ha Minh Tri' },
+    'zh_cmn': { realFeel: '体感温度', humidity: '湿度', highest: '最高', lowest: '最低', windSpeed: '风速', windDirection: '风向', visibility: '能见度', sunrise: '日出', sunset: '日落', sevenDayForecast: '7天预报', forecast: '⛄ 预报', madeBy: '由Ha Minh Tri制作' },
+    'mr': { realFeel: 'वास्तविक احساس', humidity: 'आर्द्रता', highest: 'सर्वोच्च', lowest: 'सर्वात कमी', windSpeed: 'वाऱ्याचा वेग', windDirection: 'वाऱ्याची दिशा', visibility: 'दृश्यमानता', sunrise: 'सूर्योदय', sunset: 'सूर्यास्त', sevenDayForecast: '७-दिवसांचा अंदाज', forecast: '⛄ अंदाज', madeBy: 'Ha Minh Tri यांनी बनवले' },
+    'pl': { realFeel: 'Odczuwalna', humidity: 'Wilgotność', highest: 'Najwyższa', lowest: 'Najniższa', windSpeed: 'Prędkość wiatru', windDirection: 'Kierunek wiatru', visibility: 'Widoczność', sunrise: 'Wschód słońca', sunset: 'Zachód słońca', sevenDayForecast: '7-dniowa prognoza', forecast: '⛄ Prognoza', madeBy: 'Stworzone przez Ha Minh Tri' },
+    'pt': { realFeel: 'Sensação real', humidity: 'Umidade', highest: 'Máxima', lowest: 'Mínima', windSpeed: 'Veloc. do vento', windDirection: 'Direção do vento', visibility: 'Visibilidade', sunrise: 'Nascer do sol', sunset: 'Pôr do sol', sevenDayForecast: 'Previsão de 7 dias', forecast: '⛄ Previsão', madeBy: 'Feito por Ha Minh Tri' },
+    'pa': { realFeel: 'ਅਸਲ ਮਹਿਸੂਸ', humidity: 'ਨਮੀ', highest: 'ਸਭ ਤੋਂ ਵੱਧ', lowest: 'ਸਭ ਤੋਂ ਘੱਟ', windSpeed: 'ਹਵਾ ਦੀ ਗਤੀ', windDirection: 'ਹਵਾ ਦੀ ਦਿਸ਼ਾ', visibility: 'ਦ੍ਰਿਸ਼ਟੀ', sunrise: 'ਸੂਰਜ ਚੜ੍ਹਨਾ', sunset: 'ਸੂਰਜ ਡੁੱਬਣਾ', sevenDayForecast: '7-ਦਿਨ ਦੀ ਭਵਿੱਖਬਾਣੀ', forecast: '⛄ ਭਵਿੱਖਬਾਣੀ', madeBy: 'Ha Minh Tri ਦੁਆਰਾ ਬਣਾਇਆ ਗਿਆ' },
+    'ro': { realFeel: 'Se simte ca', humidity: 'Umiditate', highest: 'Maximă', lowest: 'Minimă', windSpeed: 'Viteza vântului', windDirection: 'Direcția vântului', visibility: 'Vizibilitate', sunrise: 'Răsărit', sunset: 'Apus', sevenDayForecast: 'Prognoză pe 7 zile', forecast: '⛄ Prognoză', madeBy: 'Realizat de Ha Minh Tri' },
+    'ru': { realFeel: 'Ощущается как', humidity: 'Влажность', highest: 'Макс.', lowest: 'Мин.', windSpeed: 'Скорость ветра', windDirection: 'Направление ветра', visibility: 'Видимость', sunrise: 'Восход', sunset: 'Закат', sevenDayForecast: 'Прогноз на 7 дней', forecast: '⛄ Прогноз', madeBy: 'Сделано Ha Minh Tri' },
+    'sr': { realFeel: 'Субјективни осећај', humidity: 'Влажност', highest: 'Највиша', lowest: 'Најнижа', windSpeed: 'Брзина ветра', windDirection: 'Правац ветра', visibility: 'Видљивост', sunrise: 'Излазак Сунца', sunset: 'Залазак Сунца', sevenDayForecast: 'Прогноза за 7 дана', forecast: '⛄ Прогноза', madeBy: 'Направио Ha Minh Tri' },
+    'si': { realFeel: 'සැබෑ දැනීම', humidity: 'ආර්ද්රතාවය', highest: 'ඉහළම', lowest: 'අඩුම', windSpeed: 'සුළං වේගය', windDirection: 'සුළං දිශාව', visibility: 'දෘශ්‍යතාව', sunrise: 'හිරු උදාව', sunset: 'හිරු බැසීම', sevenDayForecast: 'දින 7ක අනාවැකිය', forecast: '⛄ අනාවැකිය', madeBy: 'Ha Minh Tri විසින් සාදන ලදී' },
+    'sk': { realFeel: 'Pocitová teplota', humidity: 'Vlhkosť', highest: 'Najvyššia', lowest: 'Najnižšia', windSpeed: 'Rýchlosť vetra', windDirection: 'Smer vetra', visibility: 'Viditeľnosť', sunrise: 'Východ slnka', sunset: 'Západ slnka', sevenDayForecast: '7-dňová predpoveď', forecast: '⛄ Predpoveď', madeBy: 'Vytvoril Ha Minh Tri' },
+    'sv': { realFeel: 'Känns som', humidity: 'Luftfuktighet', highest: 'Högsta', lowest: 'Lägsta', windSpeed: 'Vindhastighet', windDirection: 'Vindriktning', visibility: 'Sikt', sunrise: 'Soluppgång', sunset: 'Solnedgång', sevenDayForecast: '7-dygnsprognos', forecast: '⛄ Prognos', madeBy: 'Gjord av Ha Minh Tri' },
+    'ta': { realFeel: 'உண்மையான உணர்வு', humidity: 'ஈரப்பதம்', highest: 'அதிகபட்சம்', lowest: 'குறைந்தபட்சம்', windSpeed: 'காற்றின் வேகம்', windDirection: 'காற்றின் திசை', visibility: 'பார்வை', sunrise: 'சூரிய உதயம்', sunset: 'சூரிய அஸ்தமனம்', sevenDayForecast: '7-நாள் முன்னறிவிப்பு', forecast: '⛄ முன்னறிவிப்பு', madeBy: 'Ha Minh Tri ஆல் உருவாக்கப்பட்டது' },
+    'te': { realFeel: 'నిజమైన అనుభూతి', humidity: 'తేమ', highest: 'అత్యధికం', lowest: 'అత్యల్పం', windSpeed: 'గాలి వేగం', windDirection: 'గాలి దిశ', visibility: 'దృశ్యమానత', sunrise: 'సూర్యోదయం', sunset: 'సూర్యాస్తమయం', sevenDayForecast: '7-రోజుల సూచన', forecast: '⛄ సూచన', madeBy: 'Ha Minh Tri చే తయారు చేయబడింది' },
+    'tr': { realFeel: 'Hissedilen', humidity: 'Nem', highest: 'En yüksek', lowest: 'En düşük', windSpeed: 'Rüzgar hızı', windDirection: 'Rüzgar yönü', visibility: 'Görüş', sunrise: 'Gündoğumu', sunset: 'Günbatımı', sevenDayForecast: '7 günlük tahmin', forecast: '⛄ Tahmin', madeBy: 'Yapan: Ha Minh Tri' },
+    'uk': { realFeel: 'Відчувається як', humidity: 'Вологість', highest: 'Найвища', lowest: 'Найнижча', windSpeed: 'Швидкість вітру', windDirection: 'Напрям вітру', visibility: 'Видимість', sunrise: 'Схід сонця', sunset: 'Захід сонця', sevenDayForecast: 'Прогноз на 7 днів', forecast: '⛄ Прогноз', madeBy: 'Зроблено Ha Minh Tri' },
+    'ur': { realFeel: 'حقیقی احساس', humidity: 'نمی', highest: 'زیادہ سے زیادہ', lowest: 'کم سے کم', windSpeed: 'ہوا کی رفتار', windDirection: 'ہوا کی سمت', visibility: 'မြင်ibilité', sunrise: 'طلوع آفتاب', sunset: 'غروب آفتاب', sevenDayForecast: '7 دن کی پیشن گوئی', forecast: '⛄ پیشن گوئی', madeBy: 'Ha Minh Tri نے بنایا' },
+    'zh_wuu': { realFeel: '体感温度', humidity: '湿度', highest: '最高', lowest: '最低', windSpeed: '风速', windDirection: '风向', visibility: '能见度', sunrise: '日出', sunset: '日落', sevenDayForecast: '7天预报', forecast: '⛄ 预报', madeBy: '由Ha Minh Tri制作' },
+    'zh_hsn': { realFeel: '体感温度', humidity: '湿度', highest: '最高', lowest: '最低', windSpeed: '风速', windDirection: '风向', visibility: '能见度', sunrise: '日出', sunset: '日落', sevenDayForecast: '7天预报', forecast: '⛄ 预报', madeBy: '由Ha Minh Tri制作' },
+    'zh_yue': { realFeel: '體感溫度', humidity: '濕度', highest: '最高', lowest: '最低', windSpeed: '風速', windDirection: '風向', visibility: '能見度', sunrise: '日出', sunset: '日落', sevenDayForecast: '7日天氣預報', forecast: '⛄ 天氣預報', madeBy: '由Ha Minh Tri製作' },
+    'zu': { realFeel: 'Kuzwakala Njengokwangempela', humidity: 'Umswakama', highest: 'Phezulu Kakhulu', lowest: 'Phansi Kakhulu', windSpeed: 'Isivinini Somoya', windDirection: 'Isiqondiso Somoya', visibility: 'Ukubonakala', sunrise: 'Ukuphuma Kwelanga', sunset: 'Ukushona Kwelanga', sevenDayForecast: 'Isibikezelo Sezinsuku Eziyi-7', forecast: '⛄ Isibikezelo', madeBy: 'Kwenziwe ngu-Ha Minh Tri' }
 };
 
 function updateStaticText(lang) {
@@ -60,7 +73,6 @@ function updateStaticText(lang) {
     document.querySelectorAll('[data-key]').forEach(element => {
         const key = element.dataset.key;
         if (langTranslations[key]) {
-            // Đối với các thẻ label, thêm khoảng trắng. Các thẻ khác thì không.
             const suffix = element.classList.contains('real-feel-additional-label') || element.classList.contains('humidity-additional-label') || element.classList.contains('max-temperature-additional-label') || element.classList.contains('min-temperature-additional-label') || element.classList.contains('wind-speed-additional-label') || element.classList.contains('wind-direction-additional-label') || element.classList.contains('visibility-additional-label') || element.classList.contains('sunrise-additional-label') || element.classList.contains('sunset-additional-label') ? ' ' : '';
             element.textContent = langTranslations[key] + suffix;
         }

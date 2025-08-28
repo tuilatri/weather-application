@@ -10,22 +10,25 @@ const forecastContainer = document.getElementById('forecast-container');
 const searchSuggestionsEl = document.getElementById('searchSuggestions');
 const mobileSearchSuggestionsEl = document.getElementById('mobileSearchSuggestions');
 
-// ... (các hàm showLoader, displayError, clearAdditionalInfo không đổi)
-function showLoader() { /* ... */ }
-function displayError(message) { /* ... */ }
-function clearAdditionalInfo() { /* ... */ }
+function formatLocalizedDate(date, lang, options) {
+    try {
+        // Thử định dạng với ngôn ngữ được chọn
+        return date.toLocaleDateString(lang, options);
+    } catch (e) {
+        // Nếu có lỗi (ví dụ: invalid language tag), dùng tiếng Anh làm phương án dự phòng
+        console.warn(`Could not format date for language: ${lang}. Falling back to 'en-US'.`);
+        return date.toLocaleDateString('en-US', options);
+    }
+}
 
-// (CẬP NHẬT) Hàm updateUI nhận thêm tham số 'lang'
 function updateUI(data, lang) {
     const { location, current, forecast } = data;
     
-    // Dịch các nhãn tĩnh
     updateStaticText(lang);
 
-    // Sử dụng 'lang' để định dạng ngày tháng theo ngôn ngữ
     const today = new Date();
     const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-    currentDateEl.textContent = today.toLocaleDateString(lang, dateOptions);
+    currentDateEl.textContent = formatLocalizedDate(today, lang, dateOptions);
 
     locationNameEl.textContent = `${location.name}, ${location.country}`;
     temperatureValueEl.innerHTML = `${Math.round(current.temp_c)}<sup>o</sup>C`;
@@ -48,8 +51,11 @@ function updateUI(data, lang) {
         const forecastCard = document.createElement('div');
         forecastCard.classList.add('daily-forecast-card');
         const date = new Date(dayData.date);
-        const dayOfWeek = date.toLocaleDateString(lang, { weekday: 'short' }); // Dùng lang ở đây
+        
+        // (CẬP NHẬT) Sử dụng hàm format an toàn
+        const dayOfWeek = formatLocalizedDate(date, lang, { weekday: 'short' });
         const dayOfMonth = date.getDate();
+
         forecastCard.innerHTML = `
             <p class="daily-forecast-date">${dayOfWeek} ${dayOfMonth}</p>
             <div class="daily-forecast-logo"><img class="imgs-as-icons" src="https:${dayData.day.condition.icon}"></div>
@@ -63,11 +69,7 @@ function updateUI(data, lang) {
     });
 }
 
-function setRandomBackground() { /* ... không đổi ... */ }
-function displaySuggestions(suggestions, container) { /* ... không đổi ... */ }
-function clearSuggestions() { /* ... không đổi ... */ }
-
-// --- Dán lại code không đổi để bạn có file hoàn chỉnh ---
+// --- Dán lại các hàm không đổi để bạn có file hoàn chỉnh ---
 function showLoader() { locationNameEl.innerHTML = '<img id="loader1" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">'; currentDateEl.textContent = ''; temperatureValueEl.innerHTML = '<img id="loader2" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">'; weatherTypeEl.innerHTML = '<img id="loader3" src="assets/icons/loader.gif" style="width: 37.5px; height: 37.5px;">'; messageEl.textContent = ''; forecastContainer.innerHTML = ''; clearAdditionalInfo(); }
 function displayError(message) { locationNameEl.textContent = 'Error'; currentDateEl.textContent = ''; temperatureValueEl.innerHTML = ''; weatherTypeEl.innerHTML = ''; currentWeatherIconEl.src = 'assets/icons/sunny.png'; messageEl.textContent = message; forecastContainer.innerHTML = ''; clearAdditionalInfo(); }
 function clearAdditionalInfo() { document.getElementById("realFeelAdditionalValue").textContent = '-'; document.getElementById("humidityAdditionalValue").textContent = '-'; document.getElementById("maxTemperatureAdditionalValue").textContent = '-'; document.getElementById("minTemperatureAdditionalValue").textContent = '-'; document.getElementById("windSpeedAdditionalValue").textContent = '-'; document.getElementById("windDirectionAdditionalValue").textContent = '-'; document.getElementById("visibilityAdditionalValue").textContent = '-'; document.getElementById("sunriseAdditionalValue").textContent = '-'; document.getElementById("sunsetAdditionalValue").textContent = '-'; }
