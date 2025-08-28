@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="icon" type="image/x-icon" href="assets/icons/joke_bear_icon.png">
+  
+  <!-- (CẬP NHẬT) Thêm Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,24 +19,25 @@
   </style>
 </head>
 <body>
-  <!-- (MỚI) Cấu trúc Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <h3 data-key="savedLocations">Saved Locations</h3>
-      <button id="sidebarCloseBtn" class="sidebar-close-btn">&times;</button>
+      <!-- (CẬP NHẬT) Thay icon đóng -->
+      <button id="sidebarCloseBtn" class="sidebar-close-btn"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <ul id="favoritesList" class="favorites-list">
-      <!-- Các địa điểm đã lưu sẽ được chèn vào đây -->
     </ul>
   </div>
   <div id="overlay" class="overlay"></div>
 
   <div class="content-wrapper">
     <ul class="navbar">
-      <!-- (MỚI) Icon mở Sidebar -->
-      <li><a href="#" id="sidebarToggleBtn">☰</a></li>
-      <li class="forecast"><a class="repo-link" href="#" data-key="forecast">⛄ Forecast</a></li>
-      <li><a href="#" id="reloadBtn">⟳</a></li>
+      <!-- (CẬP NHẬT) Thay icon menu -->
+      <li><a href="#" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></a></li>
+      <!-- (CẬP NHẬT) Thay icon và tách chữ ra -->
+      <li class="forecast"><a class="repo-link" href="#"><i class="fa-solid fa-snowflake"></i> <span data-key="forecast">Forecast</span></a></li>
+      <!-- (CẬP NHẬT) Thay icon reload -->
+      <li><a href="#" id="reloadBtn"><i class="fa-solid fa-rotate-right"></i></a></li>
       <li class="language-container">
         <select id="languageSelector" class="language-selector"></select>
       </li>
@@ -40,8 +45,8 @@
         <input spellcheck="false" class="search-city" id="searchCity" type="text" autocomplete="off" placeholder="🔍︎ Search City">
         <div id="searchSuggestions" class="search-suggestions"></div>
       </li>
-      <!-- (MỚI) Icon lưu địa điểm -->
-      <li><a href="#" id="saveLocationBtn">☆</a></li>
+      <!-- (CẬP NHẬT) Thay icon sao -->
+      <li><a href="#" id="saveLocationBtn"><i id="saveLocationIcon" class="fa-regular fa-star"></i></a></li>
     </ul>
 
     <ul class="mobile-navbar">
@@ -84,7 +89,7 @@
     <span data-key="madeBy">Made by Ha Minh Tri</span>
   </footer>
   
-  <script src="js/favorites.js"></script> <!-- (MỚI) Thêm file favorites.js -->
+  <script src="js/favorites.js"></script>
   <script src="js/lang.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/api.js"></script>
