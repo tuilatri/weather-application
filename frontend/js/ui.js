@@ -1,5 +1,6 @@
 // js/ui.js
 
+// Lấy các element từ DOM
 const locationNameEl = document.getElementById("locationName");
 const currentDateEl = document.getElementById("currentDate");
 const temperatureValueEl = document.getElementById("temperatureValue");
@@ -20,6 +21,7 @@ const aqiValueEl = document.getElementById('aqiAdditionalValue');
 const uvIndexValueEl = document.getElementById('uvIndexAdditionalValue');
 const rainChanceValueEl = document.getElementById('rainChanceAdditionalValue');
 
+// Biến toàn cục để lưu trữ dữ liệu và trạng thái đơn vị
 let currentWeatherData = null;
 let currentUnit = localStorage.getItem('weatherUnit') || 'c';
 
@@ -33,7 +35,7 @@ function formatLocalizedDate(date, lang, options) {
 }
 
 function updateUI(data, lang) {
-    currentWeatherData = data; // Luôn cập nhật data mới nhất trước
+    currentWeatherData = data; 
     const { location, current, forecast } = data;
 
     updateSaveButtonState(location.name);
@@ -57,9 +59,12 @@ function updateUI(data, lang) {
     rainChanceValueEl.textContent = `${todayForecast.day.daily_chance_of_rain}%`;
     
     if (current.air_quality && current.air_quality['us-epa-index']) {
-        aqiValueEl.textContent = `${current.air_quality['us-epa-index']} (${getAQIDescription(current.air_quality['us-epa-index'], lang)})`;
+        const aqiValue = current.air_quality['us-epa-index'];
+        aqiValueEl.textContent = `${aqiValue} (${getAQIDescription(aqiValue, lang)})`;
+        aqiValueEl.parentElement.style.color = getAQIColor(aqiValue);
     } else {
         aqiValueEl.textContent = '-';
+        aqiValueEl.parentElement.style.color = '#333'; // Reset màu
     }
 
     forecastContainer.innerHTML = '';
@@ -69,7 +74,6 @@ function updateUI(data, lang) {
         const date = new Date(dayData.date);
         const dayOfWeek = formatLocalizedDate(date, lang, { weekday: 'short' });
         const dayOfMonth = date.getDate();
-        // Để trống nhiệt độ, hàm displayTemperatures sẽ điền vào
         forecastCard.innerHTML = `
             <p class="daily-forecast-date">${dayOfWeek} ${dayOfMonth}</p>
             <div class="daily-forecast-logo"><img class="imgs-as-icons" src="https:${dayData.day.condition.icon}"></div>
@@ -82,7 +86,6 @@ function updateUI(data, lang) {
         forecastContainer.appendChild(forecastCard);
     });
     
-    // (QUAN TRỌNG) Gọi hàm displayTemperatures ở cuối để đảm bảo tất cả element đã được tạo
     displayTemperatures();
 }
 
@@ -130,6 +133,17 @@ function getAQIDescription(aqi, lang) {
     const levels = translations[lang] || translations['en'];
     return levels[aqi] || 'Unknown';
 }
+
+function getAQIColor(aqi) {
+    if (aqi === 1) return '#00e400'; // Green
+    if (aqi === 2) return '#e5c100'; // Yellow
+    if (aqi === 3) return '#ff7e00'; // Orange
+    if (aqi === 4) return '#ff0000'; // Red
+    if (aqi === 5) return '#8f3f97'; // Purple
+    if (aqi === 6) return '#7e0023'; // Maroon
+    return '#333'; // Default
+}
+
 
 function handleAlerts(alerts) {
     if (alerts && alerts.alert.length > 0) {
@@ -204,10 +218,12 @@ function clearAdditionalInfo() {
     document.getElementById("minTemperatureAdditionalValue").textContent = '-';
     document.getElementById("windSpeedAdditionalValue").textContent = '-';
     document.getElementById("visibilityAdditionalValue").textContent = '-';
-    // (SỬA LỖI) Đảm bảo các element này tồn tại trước khi truy cập
     if (rainChanceValueEl) rainChanceValueEl.textContent = '-';
     if (uvIndexValueEl) uvIndexValueEl.textContent = '-';
-    if (aqiValueEl) aqiValueEl.textContent = '-';
+    if (aqiValueEl) {
+        aqiValueEl.textContent = '-';
+        aqiValueEl.parentElement.style.color = '#333';
+    }
 }
 
 function setRandomBackground() {
