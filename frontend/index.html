@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
   <link rel="icon" type="image/x-icon" href="assets/icons/joke_bear_icon.png">
-  
-  <!-- (CẬP NHẬT) Thêm Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,21 +19,16 @@
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <h3 data-key="savedLocations">Saved Locations</h3>
-      <!-- (CẬP NHẬT) Thay icon đóng -->
       <button id="sidebarCloseBtn" class="sidebar-close-btn"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <ul id="favoritesList" class="favorites-list">
-    </ul>
+    <ul id="favoritesList" class="favorites-list"></ul>
   </div>
   <div id="overlay" class="overlay"></div>
 
   <div class="content-wrapper">
     <ul class="navbar">
-      <!-- (CẬP NHẬT) Thay icon menu -->
       <li><a href="#" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></a></li>
-      <!-- (CẬP NHẬT) Thay icon và tách chữ ra -->
       <li class="forecast"><a class="repo-link" href="#"><i class="fa-solid fa-snowflake"></i> <span data-key="forecast">Forecast</span></a></li>
-      <!-- (CẬP NHẬT) Thay icon reload -->
       <li><a href="#" id="reloadBtn"><i class="fa-solid fa-rotate-right"></i></a></li>
       <li class="language-container">
         <select id="languageSelector" class="language-selector"></select>
@@ -45,7 +37,6 @@
         <input spellcheck="false" class="search-city" id="searchCity" type="text" autocomplete="off" placeholder="🔍︎ Search City">
         <div id="searchSuggestions" class="search-suggestions"></div>
       </li>
-      <!-- (CẬP NHẬT) Thay icon sao -->
       <li><a href="#" id="saveLocationBtn"><i id="saveLocationIcon" class="fa-regular fa-star"></i></a></li>
     </ul>
 
@@ -58,11 +49,29 @@
 
     <h1 class="location-name" id="locationName">Loading weather...</h1>
     <p class="current-date" id="currentDate"></p>
-    <div class="temperature-container">
-      <div class="temperature-icon"><img class="imgs-as-icons" id="currentWeatherIcon" src="assets/icons/sunny.png"></div>
-      <div class="temperature-value" id="temperatureValue"></div>
+
+    <!-- (MỚI) Layout container cho thời tiết và đồng hồ -->
+    <div class="main-info-container">
+        <!-- Khối thông tin thời tiết -->
+        <div class="weather-info-box">
+            <div class="temperature-container">
+                <div class="temperature-icon"><img class="imgs-as-icons" id="currentWeatherIcon" src="assets/icons/sunny.png"></div>
+                <div class="temperature-value" id="temperatureValue"></div>
+            </div>
+            <h2 class="weather-type" id="weatherType"></h2>
+        </div>
+
+        <!-- Khối đồng hồ -->
+        <div class="clock-info-box">
+            <div class="clock">
+                <div class="hand hour-hand" id="hour-hand"></div>
+                <div class="hand minute-hand" id="minute-hand"></div>
+                <div class="hand second-hand" id="second-hand"></div>
+            </div>
+            <p class="digital-clock" id="digital-clock">00:00:00</p>
+        </div>
     </div>
-    <h2 class="weather-type" id="weatherType"></h2>
+
     <div class="message" id="message" style="color: red; text-align: center; margin-top: 10px;"></div>
     
     <div class="additionals-first-row">
@@ -89,6 +98,7 @@
     <span data-key="madeBy">Made by Ha Minh Tri</span>
   </footer>
   
+  <script src="js/clock.js"></script> <!-- (MỚI) Thêm file clock.js -->
   <script src="js/favorites.js"></script>
   <script src="js/lang.js"></script>
   <script src="js/ui.js"></script>

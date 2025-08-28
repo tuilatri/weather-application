@@ -10,23 +10,101 @@ body { margin: 0; font-family: "Montserrat", sans-serif; font-weight: 500; color
 .content-wrapper { padding-bottom: 30px; }
 #loader1, #loader2, #loader3 { width: 37.5px; height: 37.5px; }
 .imgs-as-icons { width: 50px; height: 50px; }
-.navbar { background: rgba(0, 0, 0, 0.375); opacity: 100%; transition: 0.3s; padding: 5px 15px; margin: 0; display: flex; align-items: center; gap: 15px; /* Tăng gap một chút */ }
+.navbar { background: rgba(0, 0, 0, 0.375); opacity: 100%; transition: 0.3s; padding: 5px 15px; margin: 0; display: flex; align-items: center; gap: 15px; }
 .navbar .forecast { margin-right: auto; }
 .navbar li { margin: 0; padding: 0; display: flex; align-items: center; }
-.navbar li a { font-size: 20px; /* Chỉnh lại font-size cho icon */ color: #fff; padding: 8px 12px; /* Chỉnh lại padding */ text-decoration: none; transition: 0.3s; border-radius: 5px; display: flex; align-items: center; gap: 8px; /* Khoảng cách giữa icon và chữ */ }
+.navbar li a { font-size: 20px; color: #fff; padding: 8px 12px; text-decoration: none; transition: 0.3s; border-radius: 5px; display: flex; align-items: center; gap: 8px; }
 .navbar .search-city { width: 25vw; max-width: 300px; min-width: 180px; height: 40px; font-size: 16px; letter-spacing: 0.50px; padding-left: 20px; background: rgba(0, 0, 0, 0.50); border: none; color: #fff; border-radius: 50px; outline: none; }
 .navbar a:hover:not(.repo-link) { background: #000; transition: 0.3s; border-radius: 5px; }
 #saveLocationBtn.saved { color: #FFD700; }
+
+/* --- (MỚI) Layout chính và Đồng hồ --- */
+.main-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+.weather-info-box, .clock-info-box {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.clock-info-box {
+    gap: 15px; /* Khoảng cách giữa đồng hồ cơ và số */
+}
+.clock {
+    width: 150px;
+    height: 150px;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+}
+.clock::after { /* Chấm tròn ở giữa */
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+.hand {
+    width: 50%;
+    height: 6px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    transform-origin: 100%;
+    transform: rotate(90deg);
+    transition: transform 0.2s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+.hour-hand {
+    width: 35%;
+    height: 6px;
+    left: 15%;
+}
+.minute-hand {
+    width: 45%;
+    height: 4px;
+    left: 5%;
+}
+.second-hand {
+    width: 48%;
+    height: 2px;
+    background: #ff5555;
+    left: 2%;
+}
+.digital-clock {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ... (Các style cũ khác giữ nguyên) ... */
+
+/* Dán lại code không đổi để có file hoàn chỉnh */
 .sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background: rgba(10, 10, 20, 0.9); backdrop-filter: blur(10px); z-index: 1001; transform: translateX(-100%); transition: transform 0.3s ease-in-out; display: flex; flex-direction: column; }
 .sidebar.open { transform: translateX(0); }
 .sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
 .sidebar-header h3 { margin: 0; font-size: 18px; }
-.sidebar-close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; /* Chỉnh lại size */ cursor: pointer; padding: 0; line-height: 1; }
+.sidebar-close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; padding: 0; line-height: 1; }
 .favorites-list { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex-grow: 1; }
 .favorite-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; cursor: pointer; transition: background 0.2s; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 .favorite-item:hover { background: rgba(255, 255, 255, 0.1); }
 .favorite-item span { flex-grow: 1; }
-.delete-favorite-btn { background: none; border: none; color: #aaa; font-size: 1rem; /* Chỉnh lại size */ cursor: pointer; padding: 5px; margin-left: 10px; transition: color 0.2s; }
+.delete-favorite-btn { background: none; border: none; color: #aaa; font-size: 1rem; cursor: pointer; padding: 5px; margin-left: 10px; transition: color 0.2s; }
 .delete-favorite-btn:hover { color: #ff5555; }
 .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; display: none; }
 .overlay.open { display: block; }
@@ -69,4 +147,9 @@ body { margin: 0; font-family: "Montserrat", sans-serif; font-weight: 500; color
 .footer { text-align: center; padding: 20px; margin-top: auto; color: #fff; background: rgba(0, 0, 0, 0.375); display: flex; justify-content: center; align-items: center; gap: 10px; }
 .footer-icon { width: 100px; height: 25px; object-fit: contain; }
 @media (max-width: 992px) { .navbar .search-city { width: 20vw; } }
+@media (max-width: 768px) { /* (MỚI) Media query cho responsive layout */
+    .main-info-container {
+        flex-direction: column-reverse; /* Xếp chồng, đồng hồ lên trên */
+    }
+}
 @media (max-width: 600px) { .navbar { display: none; } .mobile-navbar { display: block; } .additionals-first-row, .additionals-second-row { line-height: normal; gap: 8px; } .real-feel-additional, .humidity-additional, .max-temperature-additional, .min-temperature-additional, .wind-speed-additional, .wind-direction-additional, .visibility-additional, .sunrise-additional, .sunset-additional { padding: 4px 10px; font-size: 11px; } .daily-forecast-card { width: 110px; } .daily-forecast-card .daily-forecast-date { font-size: 15px; } .max-daily-forecast { font-size: 22px; } .min-daily-forecast { font-size: 14px; } .daily-forecast .daily-forecast-label { background: rgba(211, 211, 211, 0.8); color: #252525; padding: 10px; width: 75%; border-radius: 50px; margin: auto auto 15px auto; } #weatherType { margin-top: 0; } }
