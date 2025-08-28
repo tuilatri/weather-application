@@ -1,11 +1,9 @@
 // js/main.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- STATE MANAGEMENT ----
     let currentQuery = '';
     let currentLang = localStorage.getItem('weatherAppLang') || 'en';
     
-    // ---- ELEMENTS ----
     const cityInputDesktop = document.getElementById("searchCity");
     const cityInputMobile = document.getElementById("mobileSearchCity");
     const reloadBtn = document.getElementById("reloadBtn");
@@ -158,7 +156,16 @@ document.addEventListener('DOMContentLoaded', () => {
         currentUnit = currentUnit === 'c' ? 'f' : 'c';
         localStorage.setItem('weatherUnit', currentUnit);
         unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
+        
+        // Cập nhật lại toàn bộ nhiệt độ trên trang
         displayTemperatures();
+        
+        // (SỬA LỖI) Cập nhật lại view chi tiết cho ngày đang được chọn
+        const activeCard = document.querySelector('.daily-forecast-card.active');
+        if (activeCard) {
+            const activeIndex = activeCard.dataset.index;
+            updateDetailedView(activeIndex, currentLang);
+        }
     }
 
     function handleForecastCardClick(event) {
