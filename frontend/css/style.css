@@ -8,9 +8,52 @@
 }
 body { margin: 0; font-family: "Montserrat", sans-serif; font-weight: 500; color: #fff; }
 .content-wrapper { padding-bottom: 30px; }
+
+/* --- Animations --- */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in { animation: fadeIn 0.5s ease-in-out; }
-#loader1, #loader2, #loader3 { width: 37.5px; height: 37.5px; }
+
+/* --- (MỚI) Skeleton Loading States --- */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+.skeleton {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    color: transparent !important; /* Ẩn chữ bên trong */
+}
+.skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+    animation: shimmer 1.5s infinite;
+}
+.skeleton-text {
+    width: 60%;
+    height: 1em;
+    margin: 0.5em auto;
+}
+.skeleton-text.short { width: 40%; }
+.skeleton-text.long { width: 80%; }
+.skeleton-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.skeleton-card {
+    border-radius: 10px;
+    width: 125px;
+    height: 162.5px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .imgs-as-icons { width: 50px; height: 50px; }
 .alert-banner { background: #e49400; color: #fff; padding: 12px 20px; text-align: center; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .navbar { background: rgba(0, 0, 0, 0.375); opacity: 100%; transition: 0.3s; padding: 5px 15px; margin: 0; display: flex; align-items: center; gap: 15px; }
@@ -75,12 +118,9 @@ body { margin: 0; font-family: "Montserrat", sans-serif; font-weight: 500; color
 .daily-forecast { padding: 25px; margin-top: -25px; text-align: center; }
 .daily-forecast .daily-forecast-label { color: #fff; }
 .forecast-container { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 15px; row-gap: 30px; }
-.daily-forecast-card { border-radius: 10px; background: rgba(0, 0, 0, 0.2); width: 125px; padding: 2.5px 10px; color: #fff; cursor: pointer; border: 2px solid transparent; transition: transform 0.3s ease, border-color 0.3s, background-color 0.3s; /* (CẬP NHẬT) Thêm transition cho transform */ }
+.daily-forecast-card { border-radius: 10px; background: rgba(0, 0, 0, 0.2); width: 125px; padding: 2.5px 10px; color: #fff; cursor: pointer; border: 2px solid transparent; transition: transform 0.3s ease, border-color 0.3s, background-color 0.3s; }
 .daily-forecast-card.active { border-color: rgba(255, 255, 255, 0.8); background: rgba(0, 0, 0, 0.4); }
-/* (MỚI) Thêm hiệu ứng hover */
-.daily-forecast-card:not(.active):hover {
-    transform: translateY(-5px);
-}
+.daily-forecast-card:not(.active):hover { transform: translateY(-5px); }
 .daily-forecast-card .daily-forecast-date { font-size: 17.5px; margin-top: 12.5px; font-weight: 400; }
 .daily-forecast-card .daily-forecast-logo { font-size: 37.5px; margin-top: -15px; margin-bottom: 2.5px; }
 .daily-forecast-card .weather-type-daily-forecast { font-weight: normal; margin-top: 2.5px; font-size: 14px; padding-bottom: 10px; }
