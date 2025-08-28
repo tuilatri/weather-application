@@ -9,6 +9,10 @@ async function getWeatherData(query, lang) {
             throw new Error(errorData.error || 'City not found');
         }
         const data = await response.json();
+
+        // (MỚI) Xử lý cảnh báo
+        handleAlerts(data.alerts);
+
         // Truyền cả data và lang vào hàm updateUI
         updateUI(data, lang);
     } catch (error) {

@@ -13,17 +13,14 @@ app.use(express.json());
 
 // Endpoint để lấy dữ liệu thời tiết (forecast)
 app.get('/weather', async (req, res) => {
-    // (CẬP NHẬT) Lấy thêm tham số 'lang'
     const { city, lang } = req.query;
-
     if (!city) {
         return res.status(400).json({ error: 'City parameter is required' });
     }
-
-    const langCode = lang || 'en'; // Mặc định là tiếng Anh nếu không có
+    const langCode = lang || 'en';
     const days = 7;
-    // (CẬP NHẬT) Thêm tham số &lang=${langCode} vào URL
-    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=${days}&aqi=no&alerts=no&lang=${langCode}`;
+    // (CẬP NHẬT) Sửa aqi=yes và alerts=yes
+    const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=${days}&aqi=yes&alerts=yes&lang=${langCode}`;
 
     try {
         const response = await axios.get(apiUrl);

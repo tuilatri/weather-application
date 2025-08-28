@@ -4,7 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- STATE MANAGEMENT ----
     let currentQuery = '';
     let currentLang = localStorage.getItem('weatherAppLang') || 'en';
-
+    // (QUAN TRỌNG) Biến currentUnit phải được định nghĩa ở đây để hàm handleUnitToggle có thể truy cập
+    // Biến này đã được khai báo trong ui.js, nhưng để logic event handler ở đây, chúng ta cần nó ở đây.
+    // Để tránh xung đột, chúng ta sẽ quản lý nó ở MỘT nơi duy nhất là ui.js.
+    // Thay vào đó, hàm handleUnitToggle sẽ gọi một hàm khác để thay đổi trạng thái.
+    
     // ---- ELEMENTS ----
     const cityInputDesktop = document.getElementById("searchCity");
     const cityInputMobile = document.getElementById("mobileSearchCity");
@@ -17,14 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('overlay');
     const saveLocationBtn = document.getElementById('saveLocationBtn');
     const favoritesList = document.getElementById('favoritesList');
+    const unitToggleBtn = document.getElementById('unit-toggle-btn');
 
     // ---- INITIALIZATION ----
     setRandomBackground();
     populateLanguageSelector();
     renderFavoritesSidebar();
+    
+    // Cập nhật hiển thị nút đơn vị dựa trên giá trị trong ui.js
+    unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
     getDefaultWeather();
 
-    // ---- FUNCTIONS ----
+    // ---- FUNCTIONS & EVENT HANDLERS ----
     function populateLanguageSelector() {
         LANGUAGES.forEach(lang => {
             const option = document.createElement('option');
@@ -63,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ---- EVENT HANDLERS ----
     const handleInput = async (event) => {
         const query = event.target.value.trim();
         const suggestionsContainer = event.target.id === 'searchCity' ? searchSuggestions : mobileSearchSuggestions;
@@ -132,8 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function handleFavoriteListClick(event) {
         const target = event.target;
-        if (target.classList.contains('delete-favorite-btn')) {
-            const city = target.dataset.city;
+        if (target.classList.contains('delete-favorite-btn') || target.closest('.delete-favorite-btn')) {
+            const button = target.closest('.delete-favorite-btn');
+            const city = button.dataset.city;
             removeFavorite(city);
             renderFavoritesSidebar();
             const currentCity = locationNameEl.textContent.split(',')[0].trim();
@@ -151,9 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function handleUnitToggle() {
+        currentUnit = currentUnit === 'c' ? 'f' : 'c';
+        localStorage.setItem('weatherUnit', currentUnit);
+        unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
+        displayTemperatures();
+    }
+
     // ---- EVENT LISTENERS ----
     reloadBtn.addEventListener("click", handleReload);
     languageSelector.addEventListener('change', handleLanguageChange);
+    unitToggleBtn.addEventListener('click', handleUnitToggle);
     cityInputDesktop.addEventListener("input", debounce(handleInput, 300));
     cityInputMobile.addEventListener("input", debounce(handleInput, 300));
     cityInputDesktop.addEventListener("keyup", handleSearch);
