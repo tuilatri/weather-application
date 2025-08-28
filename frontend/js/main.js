@@ -3,7 +3,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ---- STATE MANAGEMENT ----
     let currentQuery = '';
-    // Lấy ngôn ngữ từ localStorage hoặc mặc định là 'en'
     let currentLang = localStorage.getItem('weatherAppLang') || 'en';
 
     // ---- ELEMENTS ----
@@ -13,10 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchSuggestions = document.getElementById('searchSuggestions');
     const mobileSearchSuggestions = document.getElementById('mobileSearchSuggestions');
     const languageSelector = document.getElementById('languageSelector');
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    const overlay = document.getElementById('overlay');
+    const saveLocationBtn = document.getElementById('saveLocationBtn');
+    const favoritesList = document.getElementById('favoritesList');
 
     // ---- INITIALIZATION ----
     setRandomBackground();
     populateLanguageSelector();
+    renderFavoritesSidebar();
     getDefaultWeather();
 
     // ---- FUNCTIONS ----
@@ -103,9 +108,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const newLang = languageSelector.value;
         currentLang = newLang;
         localStorage.setItem('weatherAppLang', newLang);
-        // Nếu đã có query, fetch lại data với ngôn ngữ mới
         if(currentQuery) {
             getWeatherData(currentQuery, currentLang);
+        }
+        renderFavoritesSidebar();
+    }
+
+    function handleSaveClick(event) {
+        event.preventDefault();
+        const currentCity = locationNameEl.textContent.split(',')[0].trim();
+        if (!currentCity || currentCity === 'Loading weather...' || currentCity === 'Error') {
+            return;
+        }
+
+        if (isFavorite(currentCity)) {
+            removeFavorite(currentCity);
+        } else {
+            addFavorite(currentCity);
+        }
+        updateSaveButtonState(currentCity);
+        renderFavoritesSidebar();
+    }
+    
+    function handleFavoriteListClick(event) {
+        const target = event.target;
+        if (target.classList.contains('delete-favorite-btn')) {
+            const city = target.dataset.city;
+            removeFavorite(city);
+            renderFavoritesSidebar();
+            const currentCity = locationNameEl.textContent.split(',')[0].trim();
+            if (currentCity.toLowerCase() === city.toLowerCase()) {
+                updateSaveButtonState(city);
+            }
+        } 
+        else if (target.closest('.favorite-item')) {
+            const city = target.closest('.favorite-item').dataset.city;
+            if(city) {
+                currentQuery = city;
+                getWeatherData(currentQuery, currentLang);
+                toggleSidebar();
+            }
         }
     }
 
@@ -123,4 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
             clearSuggestions();
         }
     });
+
+    sidebarToggleBtn.addEventListener('click', toggleSidebar);
+    sidebarCloseBtn.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    saveLocationBtn.addEventListener('click', handleSaveClick);
+    favoritesList.addEventListener('click', handleFavoriteListClick);
 });
