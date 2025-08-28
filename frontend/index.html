@@ -30,7 +30,6 @@
         <i class="fa-solid fa-triangle-exclamation"></i>
         <span id="alert-text"></span>
     </div>
-
     <ul class="navbar">
       <li><a href="#" id="sidebarToggleBtn"><i class="fa-solid fa-bars"></i></a></li>
       <li class="forecast"><a class="repo-link" href="#"><i class="fa-solid fa-snowflake"></i> <span data-key="forecast">Forecast</span></a></li>
@@ -47,7 +46,6 @@
       </li>
       <li><a href="#" id="saveLocationBtn"><i id="saveLocationIcon" class="fa-regular fa-star"></i></a></li>
     </ul>
-
     <ul class="mobile-navbar">
       <li class="search-container">
         <input spellcheck="false" class="mobile-search-city" id="mobileSearchCity" type="text" autocomplete="off" placeholder="Search City...">
@@ -76,18 +74,20 @@
     </div>
     <div class="message" id="message" style="color: red; text-align: center; margin-top: 10px;"></div>
     
-    <div class="additionals-first-row">
-      <span class="real-feel-additional"><span class="real-feel-additional-label" data-key="realFeel">Real Feel </span><span class="real-feel-additional-value" id="realFeelAdditionalValue">-</span></span>
-      <span class="humidity-additional"><span class="humidity-additional-label" data-key="humidity">Humidity </span><span class="humidity-additional-value" id="humidityAdditionalValue">-</span></span>
-      <span class="max-temperature-additional"><span class="max-temperature-additional-label" data-key="highest">Highest </span><span class="max-temperature-additional-value" id="maxTemperatureAdditionalValue">-</span></span>
-      <span class="min-temperature-additional"><span class="min-temperature-additional-label" data-key="lowest">Lowest </span><span class="min-temperature-additional-value" id="minTemperatureAdditionalValue">-</span></span>
-    </div>
-    <div class="additionals-second-row">
-      <span class="wind-speed-additional"><span class="wind-speed-additional-label" data-key="windSpeed">Wind Speed </span><span class="wind-speed-additional-value" id="windSpeedAdditionalValue">-</span></span>
-      <span class="visibility-additional"><span class="visibility-additional-label" data-key="visibility">Visibility </span><span class="visibility-additional-value" id="visibilityAdditionalValue">-</span></span>
-      <span class="rain-chance-additional"><span class="rain-chance-additional-label" data-key="chanceOfRain">Chance of Rain </span><span class="rain-chance-additional-value" id="rainChanceAdditionalValue">-</span></span>
-      <span class="uv-index-additional"><span class="uv-index-additional-label" data-key="uvIndex">UV Index </span><span class="uv-index-additional-value" id="uvIndexAdditionalValue">-</span></span>
-      <span class="aqi-additional"><span class="aqi-additional-label" data-key="aqi">AQI </span><span class="aqi-additional-value" id="aqiAdditionalValue">-</span></span>
+    <div class="additionals-container">
+        <div class="additionals-first-row">
+          <span class="real-feel-additional"><span class="real-feel-additional-label" data-key="realFeel">Real Feel </span><span class="real-feel-additional-value" id="realFeelAdditionalValue">-</span></span>
+          <span class="humidity-additional"><span class="humidity-additional-label" data-key="humidity">Humidity </span><span class="humidity-additional-value" id="humidityAdditionalValue">-</span></span>
+          <span class="max-temperature-additional"><span class="max-temperature-additional-label" data-key="highest">Highest </span><span class="max-temperature-additional-value" id="maxTemperatureAdditionalValue">-</span></span>
+          <span class="min-temperature-additional"><span class="min-temperature-additional-label" data-key="lowest">Lowest </span><span class="min-temperature-additional-value" id="minTemperatureAdditionalValue">-</span></span>
+        </div>
+        <div class="additionals-second-row">
+          <span class="wind-speed-additional"><span class="wind-speed-additional-label" data-key="windSpeed">Wind Speed </span><span class="wind-speed-additional-value" id="windSpeedAdditionalValue">-</span></span>
+          <span class="visibility-additional"><span class="visibility-additional-label" data-key="visibility">Visibility </span><span class="visibility-additional-value" id="visibilityAdditionalValue">-</span></span>
+          <span class="rain-chance-additional"><span class="rain-chance-additional-label" data-key="chanceOfRain">Chance of Rain </span><span class="rain-chance-additional-value" id="rainChanceAdditionalValue">-</span></span>
+          <span class="uv-index-additional"><span class="uv-index-additional-label" data-key="uvIndex">UV Index </span><span class="uv-index-additional-value" id="uvIndexAdditionalValue">-</span></span>
+          <span class="aqi-additional"><span class="aqi-additional-label" data-key="aqi">AQI </span><span class="aqi-additional-value" id="aqiAdditionalValue">-</span></span>
+        </div>
     </div>
     <br>
     <div class="daily-forecast">
@@ -100,6 +100,7 @@
     <span data-key="madeBy">Made by Ha Minh Tri</span>
   </footer>
   
+  <script src="js/animations.js"></script> <!-- (MỚI) Thêm file animations.js -->
   <script src="js/clock.js"></script>
   <script src="js/favorites.js"></script>
   <script src="js/lang.js"></script>
