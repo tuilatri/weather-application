@@ -30,18 +30,27 @@ const TRANSLATIONS = {
         lowest: 'Lowest', windSpeed: 'Wind Speed', windDirection: 'Wind Direction',
         visibility: 'Visibility', sunrise: 'Sunrise', sunset: 'Sunset',
         sevenDayForecast: '7-Day Forecast',
+        // (CẬP NHẬT) Thêm các key mới
+        forecast: '⛄ Forecast',
+        madeBy: 'Made by Ha Minh Tri'
     },
     'vi': {
         realFeel: 'Cảm giác thực', humidity: 'Độ ẩm', highest: 'Cao nhất',
         lowest: 'Thấp nhất', windSpeed: 'Tốc độ gió', windDirection: 'Hướng gió',
         visibility: 'Tầm nhìn', sunrise: 'Mặt trời mọc', sunset: 'Mặt trời lặn',
         sevenDayForecast: 'Dự báo 7 ngày',
+        // (CẬP NHẬT) Thêm các key mới
+        forecast: '⛄ Dự báo',
+        madeBy: 'Thực hiện bởi Hà Minh Trí'
     },
     'es': {
         realFeel: 'Sensación real', humidity: 'Humedad', highest: 'Más alta',
         lowest: 'Más bajo', windSpeed: 'Velocidad del viento', windDirection: 'Dirección del viento',
         visibility: 'Visibilidad', sunrise: 'Amanecer', sunset: 'Atardecer',
         sevenDayForecast: 'Pronóstico de 7 días',
+        // (CẬP NHẬT) Thêm các key mới
+        forecast: '⛄ Pronóstico',
+        madeBy: 'Hecho por Ha Minh Tri'
     },
     // Bạn có thể thêm các ngôn ngữ khác ở đây...
 };
@@ -51,7 +60,9 @@ function updateStaticText(lang) {
     document.querySelectorAll('[data-key]').forEach(element => {
         const key = element.dataset.key;
         if (langTranslations[key]) {
-            element.textContent = langTranslations[key] + ' ';
+            // Đối với các thẻ label, thêm khoảng trắng. Các thẻ khác thì không.
+            const suffix = element.classList.contains('real-feel-additional-label') || element.classList.contains('humidity-additional-label') || element.classList.contains('max-temperature-additional-label') || element.classList.contains('min-temperature-additional-label') || element.classList.contains('wind-speed-additional-label') || element.classList.contains('wind-direction-additional-label') || element.classList.contains('visibility-additional-label') || element.classList.contains('sunrise-additional-label') || element.classList.contains('sunset-additional-label') ? ' ' : '';
+            element.textContent = langTranslations[key] + suffix;
         }
     });
 }
