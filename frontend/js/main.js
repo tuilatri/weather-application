@@ -18,13 +18,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveLocationBtn = document.getElementById('saveLocationBtn');
     const favoritesList = document.getElementById('favoritesList');
 
+    // (MỚI) Lấy nút chuyển đổi đơn vị
+    const unitToggleBtn = document.getElementById('unit-toggle-btn');
+
     // ---- INITIALIZATION ----
     setRandomBackground();
     populateLanguageSelector();
     renderFavoritesSidebar();
+    
+    // (MỚI) Cập nhật hiển thị nút đơn vị
+    unitToggleBtn.textContent = `°${(localStorage.getItem('weatherUnit') || 'c').toUpperCase()}`;
     getDefaultWeather();
 
     // ---- FUNCTIONS ----
+    function handleUnitToggle() {
+        // Chuyển đổi giữa 'c' và 'f'
+        currentUnit = currentUnit === 'c' ? 'f' : 'c';
+        localStorage.setItem('weatherUnit', currentUnit);
+        unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
+        
+        // Cập nhật lại giao diện với đơn vị mới mà không cần gọi lại API
+        displayTemperatures();
+    }
+
     function populateLanguageSelector() {
         LANGUAGES.forEach(lang => {
             const option = document.createElement('option');
@@ -171,4 +187,5 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.addEventListener('click', toggleSidebar);
     saveLocationBtn.addEventListener('click', handleSaveClick);
     favoritesList.addEventListener('click', handleFavoriteListClick);
+    unitToggleBtn.addEventListener('click', handleUnitToggle);    
 });
