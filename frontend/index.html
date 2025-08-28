@@ -15,9 +15,22 @@
   </style>
 </head>
 <body>
+  <!-- (MỚI) Cấu trúc Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3 data-key="savedLocations">Saved Locations</h3>
+      <button id="sidebarCloseBtn" class="sidebar-close-btn">&times;</button>
+    </div>
+    <ul id="favoritesList" class="favorites-list">
+      <!-- Các địa điểm đã lưu sẽ được chèn vào đây -->
+    </ul>
+  </div>
+  <div id="overlay" class="overlay"></div>
+
   <div class="content-wrapper">
     <ul class="navbar">
-      <!-- (CẬP NHẬT) Thêm data-key="forecast" -->
+      <!-- (MỚI) Icon mở Sidebar -->
+      <li><a href="#" id="sidebarToggleBtn">☰</a></li>
       <li class="forecast"><a class="repo-link" href="#" data-key="forecast">⛄ Forecast</a></li>
       <li><a href="#" id="reloadBtn">⟳</a></li>
       <li class="language-container">
@@ -27,6 +40,8 @@
         <input spellcheck="false" class="search-city" id="searchCity" type="text" autocomplete="off" placeholder="🔍︎ Search City">
         <div id="searchSuggestions" class="search-suggestions"></div>
       </li>
+      <!-- (MỚI) Icon lưu địa điểm -->
+      <li><a href="#" id="saveLocationBtn">☆</a></li>
     </ul>
 
     <ul class="mobile-navbar">
@@ -66,10 +81,10 @@
   </div>
   <footer class="footer">
     <img src="assets/icons/FCJ-logo.png" alt="Icon" class="footer-icon">
-    <!-- (CẬP NHẬT) Thêm data-key="madeBy" -->
     <span data-key="madeBy">Made by Ha Minh Tri</span>
   </footer>
   
+  <script src="js/favorites.js"></script> <!-- (MỚI) Thêm file favorites.js -->
   <script src="js/lang.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/api.js"></script>
