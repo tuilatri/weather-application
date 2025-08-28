@@ -19,8 +19,6 @@ const alertText = document.getElementById('alert-text');
 const aqiValueEl = document.getElementById('aqiAdditionalValue');
 const uvIndexValueEl = document.getElementById('uvIndexAdditionalValue');
 const rainChanceValueEl = document.getElementById('rainChanceAdditionalValue');
-
-// Lấy thêm các container để áp dụng animation
 const mainInfoContainer = document.querySelector('.main-info-container');
 const additionalsContainer = document.querySelector('.additionals-container');
 const dailyForecastContainer = document.querySelector('.daily-forecast');
@@ -28,41 +26,29 @@ const dailyForecastContainer = document.querySelector('.daily-forecast');
 let currentWeatherData = null;
 let currentUnit = localStorage.getItem('weatherUnit') || 'c';
 let lastTemperature = null;
-let lastFeelsLike = null;
-
-function formatLocalizedDate(date, lang, options) { /* ... Giữ nguyên ... */ }
 
 function updateUI(data, lang) {
-    const { location, current, forecast } = data;
-
-    // Áp dụng animation
     applyAnimation(locationNameEl);
-    applyAnimation(currentDateEl);
     applyAnimation(mainInfoContainer);
     applyAnimation(additionalsContainer);
     applyAnimation(dailyForecastContainer);
 
     currentWeatherData = data;
+    const { location, current, forecast } = data;
+
     updateSaveButtonState(location.name);
     updateStaticText(lang);
 
-    const today = new Date();
-    const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
-    currentDateEl.textContent = formatLocalizedDate(today, lang, dateOptions);
-
+    // Hiển thị thông tin thời tiết hiện tại chính
     locationNameEl.textContent = `${location.name}, ${location.country}`;
+    const newTemp = Math.round(current['temp_' + currentUnit]);
+    animateValue(temperatureValueEl, lastTemperature || newTemp, newTemp, 500, `°${currentUnit.toUpperCase()}`);
+    lastTemperature = newTemp;
     weatherTypeEl.textContent = current.condition.text;
     currentWeatherIconEl.src = `https:${current.condition.icon}`;
     messageEl.textContent = '';
     
-    document.getElementById("humidityAdditionalValue").textContent = `${current.humidity}%`;
-    document.getElementById("windSpeedAdditionalValue").textContent = `${current.wind_kph} km/h`;
-    document.getElementById("visibilityAdditionalValue").textContent = `${current.vis_km} km`;
-
-    const todayForecast = forecast.forecastday[0];
-    uvIndexValueEl.textContent = `${current.uv} (${getUVDescription(current.uv, lang)})`;
-    rainChanceValueEl.textContent = `${todayForecast.day.daily_chance_of_rain}%`;
-    
+    // (SỬA LỖI) Xử lý AQI ở đây, chỉ dựa vào dữ liệu 'current'
     if (current.air_quality && current.air_quality['us-epa-index']) {
         const aqiValue = current.air_quality['us-epa-index'];
         aqiValueEl.textContent = `${aqiValue} (${getAQIDescription(aqiValue, lang)})`;
@@ -72,10 +58,12 @@ function updateUI(data, lang) {
         aqiValueEl.parentElement.style.color = '#333';
     }
 
+    // Tạo các thẻ dự báo
     forecastContainer.innerHTML = '';
-    forecast.forecastday.forEach(dayData => {
+    forecast.forecastday.forEach((dayData, index) => {
         const forecastCard = document.createElement('div');
         forecastCard.classList.add('daily-forecast-card');
+        forecastCard.dataset.index = index;
         const date = new Date(dayData.date);
         const dayOfWeek = formatLocalizedDate(date, lang, { weekday: 'short' });
         const dayOfMonth = date.getDate();
@@ -91,42 +79,41 @@ function updateUI(data, lang) {
         forecastContainer.appendChild(forecastCard);
     });
     
-    displayTemperatures();
+    // Mặc định hiển thị chi tiết cho ngày hôm nay (index 0)
+    updateDetailedView(0, lang);
+    forecastContainer.querySelector('.daily-forecast-card[data-index="0"]').classList.add('active');
+
+    displayTemperatures(); // Cập nhật nhiệt độ cho tất cả các thẻ
 }
 
-function displayTemperatures() {
+function updateDetailedView(dayIndex, lang) {
     if (!currentWeatherData) return;
-    const { current, forecast } = currentWeatherData;
-    const unitSymbol = currentUnit === 'c' ? '°C' : '°F';
-    
-    const newTemp = Math.round(current['temp_' + currentUnit]);
-    const newFeelsLike = Math.round(current['feelslike_' + currentUnit]);
+    const { forecast, current } = currentWeatherData;
+    const dayData = forecast.forecastday[dayIndex];
+    const unitSymbol = `°${currentUnit.toUpperCase()}`;
 
-    // Animate đếm số
-    animateValue(temperatureValueEl, lastTemperature || newTemp, newTemp, 500, unitSymbol);
-    animateValue(document.getElementById("realFeelAdditionalValue"), lastFeelsLike || newFeelsLike, newFeelsLike, 500, unitSymbol);
-    
-    // Lưu lại giá trị nhiệt độ hiện tại để làm điểm bắt đầu cho lần sau
-    lastTemperature = newTemp;
-    lastFeelsLike = newFeelsLike;
+    const date = new Date(dayData.date);
+    const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+    currentDateEl.textContent = formatLocalizedDate(date, lang, dateOptions);
+    applyAnimation(currentDateEl);
 
-    const todayForecast = forecast.forecastday[0];
-    document.getElementById("maxTemperatureAdditionalValue").innerHTML = `${Math.round(todayForecast.day['maxtemp_' + currentUnit])}<sup>${unitSymbol}</sup>`;
-    document.getElementById("minTemperatureAdditionalValue").innerHTML = `${Math.round(todayForecast.day['mintemp_' + currentUnit])}<sup>${unitSymbol}</sup>`;
+    // (SỬA LỖI) Chỉ cập nhật các giá trị thay đổi theo ngày
+    const humidity = (dayIndex == 0) ? current.humidity : dayData.day.avghumidity;
+    document.getElementById("humidityAdditionalValue").textContent = `${humidity}%`;
+    document.getElementById("windSpeedAdditionalValue").textContent = `${dayData.day.maxwind_kph} km/h`;
+    document.getElementById("visibilityAdditionalValue").textContent = `${dayData.day.avgvis_km} km`;
+    rainChanceValueEl.textContent = `${dayData.day.daily_chance_of_rain}%`;
+    uvIndexValueEl.textContent = `${dayData.day.uv} (${getUVDescription(dayData.day.uv, lang)})`;
     
-    const forecastCards = document.querySelectorAll('.daily-forecast-card');
-    forecast.forecastday.forEach((dayData, index) => {
-        if(forecastCards[index]) {
-            const maxTempEl = forecastCards[index].querySelector('.max-daily-forecast');
-            const minTempEl = forecastCards[index].querySelector('.min-daily-forecast');
-            maxTempEl.innerHTML = `${Math.round(dayData.day['maxtemp_' + currentUnit])}<sup>${unitSymbol}</sup>`;
-            minTempEl.innerHTML = `${Math.round(dayData.day['mintemp_' + currentUnit])}<sup>${unitSymbol}</sup>`;
-        }
-    });
+    // Cập nhật nhiệt độ cho phần chi tiết
+    const feelslike = (dayIndex == 0) ? current['feelslike_' + currentUnit] : dayData.day['avgtemp_' + currentUnit];
+    document.getElementById("realFeelAdditionalValue").innerHTML = `${Math.round(feelslike)}<sup>${unitSymbol}</sup>`;
+    document.getElementById("maxTemperatureAdditionalValue").innerHTML = `${Math.round(dayData.day['maxtemp_' + currentUnit])}<sup>${unitSymbol}</sup>`;
+    document.getElementById("minTemperatureAdditionalValue").innerHTML = `${Math.round(dayData.day['mintemp_' + currentUnit])}<sup>${unitSymbol}</sup>`;
 }
-// ... (Các hàm còn lại giữ nguyên)
 
-// --- Dán lại code không đổi để bạn có file hoàn chỉnh ---
+// --- Các hàm còn lại giữ nguyên ---
+function displayTemperatures() { if (!currentWeatherData) return; const { current, forecast } = currentWeatherData; const unitSymbol = currentUnit === 'c' ? '°C' : '°F'; const newTemp = Math.round(current['temp_' + currentUnit]); animateValue(temperatureValueEl, lastTemperature || newTemp, newTemp, 500, unitSymbol); lastTemperature = newTemp; document.getElementById("realFeelAdditionalValue").innerHTML = `${Math.round(current['feelslike_' + currentUnit])}<sup>${unitSymbol}</sup>`; const todayForecast = forecast.forecastday[0]; document.getElementById("maxTemperatureAdditionalValue").innerHTML = `${Math.round(todayForecast.day['maxtemp_' + currentUnit])}<sup>${unitSymbol}</sup>`; document.getElementById("minTemperatureAdditionalValue").innerHTML = `${Math.round(todayForecast.day['mintemp_' + currentUnit])}<sup>${unitSymbol}</sup>`; const forecastCards = document.querySelectorAll('.daily-forecast-card'); forecast.forecastday.forEach((dayData, index) => { if(forecastCards[index]) { const maxTempEl = forecastCards[index].querySelector('.max-daily-forecast'); const minTempEl = forecastCards[index].querySelector('.min-daily-forecast'); maxTempEl.innerHTML = `${Math.round(dayData.day['maxtemp_' + currentUnit])}<sup>${unitSymbol}</sup>`; minTempEl.innerHTML = `${Math.round(dayData.day['mintemp_' + currentUnit])}<sup>${unitSymbol}</sup>`; } }); }
 function formatLocalizedDate(date, lang, options) { try { return date.toLocaleDateString(lang, options); } catch (e) { console.warn(`Could not format date for language: ${lang}. Falling back to 'en-US'.`); return date.toLocaleDateString('en-US', options); } }
 function getUVDescription(uv, lang) { const translations = { 'en': ['Low', 'Moderate', 'High', 'Very High', 'Extreme'], 'vi': ['Thấp', 'Trung bình', 'Cao', 'Rất cao', 'Cực đoan'], }; const levels = translations[lang] || translations['en']; if (uv <= 2) return levels[0]; if (uv <= 5) return levels[1]; if (uv <= 7) return levels[2]; if (uv <= 10) return levels[3]; return levels[4]; }
 function getAQIDescription(aqi, lang) { const translations = { 'en': ['', 'Good', 'Moderate', 'Unhealthy for SG', 'Unhealthy', 'Very Unhealthy', 'Hazardous'], 'vi': ['', 'Tốt', 'Trung bình', 'Không tốt cho nhóm nhạy cảm', 'Không tốt', 'Rất không tốt', 'Nguy hiểm'], }; const levels = translations[lang] || translations['en']; return levels[aqi] || 'Unknown'; }
