@@ -4,10 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- STATE MANAGEMENT ----
     let currentQuery = '';
     let currentLang = localStorage.getItem('weatherAppLang') || 'en';
-    // (QUAN TRỌNG) Biến currentUnit phải được định nghĩa ở đây để hàm handleUnitToggle có thể truy cập
-    // Biến này đã được khai báo trong ui.js, nhưng để logic event handler ở đây, chúng ta cần nó ở đây.
-    // Để tránh xung đột, chúng ta sẽ quản lý nó ở MỘT nơi duy nhất là ui.js.
-    // Thay vào đó, hàm handleUnitToggle sẽ gọi một hàm khác để thay đổi trạng thái.
     
     // ---- ELEMENTS ----
     const cityInputDesktop = document.getElementById("searchCity");
@@ -22,13 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveLocationBtn = document.getElementById('saveLocationBtn');
     const favoritesList = document.getElementById('favoritesList');
     const unitToggleBtn = document.getElementById('unit-toggle-btn');
+    const forecastContainer = document.getElementById('forecast-container');
 
     // ---- INITIALIZATION ----
     setRandomBackground();
     populateLanguageSelector();
     renderFavoritesSidebar();
-    
-    // Cập nhật hiển thị nút đơn vị dựa trên giá trị trong ui.js
     unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
     getDefaultWeather();
 
@@ -166,6 +161,17 @@ document.addEventListener('DOMContentLoaded', () => {
         displayTemperatures();
     }
 
+    function handleForecastCardClick(event) {
+        const card = event.target.closest('.daily-forecast-card');
+        if (!card) return;
+
+        document.querySelectorAll('.daily-forecast-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        const dayIndex = card.dataset.index;
+        updateDetailedView(dayIndex, currentLang);
+    }
+    
     // ---- EVENT LISTENERS ----
     reloadBtn.addEventListener("click", handleReload);
     languageSelector.addEventListener('change', handleLanguageChange);
@@ -181,10 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
             clearSuggestions();
         }
     });
-
     sidebarToggleBtn.addEventListener('click', toggleSidebar);
     sidebarCloseBtn.addEventListener('click', toggleSidebar);
     overlay.addEventListener('click', toggleSidebar);
     saveLocationBtn.addEventListener('click', handleSaveClick);
     favoritesList.addEventListener('click', handleFavoriteListClick);
+    forecastContainer.addEventListener('click', handleForecastCardClick);
 });
