@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setRandomBackground();
     populateLanguageSelector();
     renderFavoritesSidebar();
+    // Cập nhật hiển thị nút đơn vị dựa trên biến toàn cục 'currentUnit' từ ui.js
     unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
     getDefaultWeather();
 
@@ -155,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleUnitToggle() {
+        // Thay đổi biến toàn cục 'currentUnit' từ ui.js
         currentUnit = currentUnit === 'c' ? 'f' : 'c';
         localStorage.setItem('weatherUnit', currentUnit);
         unitToggleBtn.textContent = `°${currentUnit.toUpperCase()}`;
