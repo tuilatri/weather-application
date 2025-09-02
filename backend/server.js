@@ -11,6 +11,10 @@ const apiKey = process.env.WEATHER_API_KEY;
 app.use(cors());
 app.use(express.json());
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Endpoint để lấy dữ liệu thời tiết (forecast)
 app.get('/weather', async (req, res) => {
     const { city, lang } = req.query;

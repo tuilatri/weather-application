@@ -1,9 +1,13 @@
 // js/api.js
 
+const API_BASE = "http://localhost:3000";
+
 async function getWeatherData(query, lang) {
     showLoader();
     try {
-        const response = await fetch(`http://localhost:3000/weather?city=${query}&lang=${lang}`);
+        // const response = await fetch(`http://localhost:3000/weather?city=${query}&lang=${lang}`);
+
+        const response = await fetch(`${API_BASE}/weather?city=${query}&lang=${lang}`);        
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.error || 'City not found');
@@ -24,7 +28,9 @@ async function getWeatherData(query, lang) {
 async function getSearchSuggestions(query) {
     if (query.length < 3) return [];
     try {
-        const response = await fetch(`http://localhost:3000/search?query=${query}`);
+        // const response = await fetch(`http://localhost:3000/search?query=${query}`);
+
+        const response = await fetch(`${API_BASE}/search?query=${query}`);        
         if (!response.ok) return [];
         return await response.json();
     } catch (error) {
