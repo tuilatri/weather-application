@@ -1,6 +1,14 @@
 // js/api.js
 
-const API_BASE = "http://localhost:3000";
+// Trước: 
+// const API_BASE = "http://localhost:3000";
+// d17779czbqyng5.cloudfront.net
+// const API_BASE = "https://d17779czbqyng5.cloudfront.net";
+// const API_BASE = "https://d1luuh0kh6w8s4.cloudfront.net";
+// const API_BASE = "http://weather-app-be-load-balancer-1329043083.ap-southeast-1.elb.amazonaws.com";
+// d301lwiqyav67p.cloudfront.net
+
+const API_BASE = "https://d301lwiqyav67p.cloudfront.net";
 
 async function getWeatherData(query, lang) {
     showLoader();
